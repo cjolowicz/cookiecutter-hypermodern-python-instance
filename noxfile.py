@@ -45,7 +45,7 @@ class Poetry:
             yield requirements.name
 
 
-def install_with_constraints(session: Session, *args: str) -> None:
+def install(session: Session, *args: str) -> None:
     """Install development dependencies into the session's virtual environment.
 
     This function is a wrapper for nox.sessions.Session.install.
@@ -65,7 +65,7 @@ def install_with_constraints(session: Session, *args: str) -> None:
 def black(session: Session) -> None:
     """Run black code formatter."""
     args = session.posargs or locations
-    install_with_constraints(session, "black")
+    install(session, "black")
     session.run("black", *args)
 
 
@@ -73,7 +73,7 @@ def black(session: Session) -> None:
 def lint(session: Session) -> None:
     """Lint using flake8."""
     args = session.posargs or locations
-    install_with_constraints(
+    install(
         session,
         "flake8",
         "flake8-annotations",
@@ -100,7 +100,7 @@ def safety(session: Session) -> None:
             f"--output={requirements.name}",
             external=True,
         )
-        install_with_constraints(session, "safety")
+        install(session, "safety")
         session.run("safety", "check", f"--file={requirements.name}", "--bare")
 
 
@@ -108,7 +108,7 @@ def safety(session: Session) -> None:
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or locations
-    install_with_constraints(session, "mypy")
+    install(session, "mypy")
     session.run("mypy", *args)
 
 
@@ -116,7 +116,7 @@ def mypy(session: Session) -> None:
 def pytype(session: Session) -> None:
     """Type-check using pytype."""
     args = session.posargs or ["--disable=import-error", *locations]
-    install_with_constraints(session, "pytype")
+    install(session, "pytype")
     session.run("pytype", *args)
 
 
@@ -125,7 +125,7 @@ def tests(session: Session) -> None:
     """Run the test suite."""
     args = session.posargs or ["--cov"]
     session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(session, "coverage[toml]", "pytest", "pytest-cov")
+    install(session, "coverage[toml]", "pytest", "pytest-cov")
     session.run("pytest", *args)
 
 
@@ -133,7 +133,7 @@ def tests(session: Session) -> None:
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
     session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(session, "pytest", "typeguard")
+    install(session, "pytest", "typeguard")
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
@@ -142,14 +142,14 @@ def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
     session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(session, "xdoctest")
+    install(session, "xdoctest")
     session.run("python", "-m", "xdoctest", package, *args)
 
 
 @nox.session(python="3.8")
 def coverage(session: Session) -> None:
     """Upload coverage data."""
-    install_with_constraints(session, "coverage[toml]", "codecov")
+    install(session, "coverage[toml]", "codecov")
     session.run("coverage", "xml", "--fail-under=0")
     session.run("codecov", *session.posargs)
 
@@ -158,5 +158,5 @@ def coverage(session: Session) -> None:
 def docs(session: Session) -> None:
     """Build the documentation."""
     session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(session, "sphinx", "sphinx-autodoc-typehints")
+    install(session, "sphinx", "sphinx-autodoc-typehints")
     session.run("sphinx-build", "docs", "docs/_build")
