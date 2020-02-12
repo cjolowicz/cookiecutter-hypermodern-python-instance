@@ -64,6 +64,30 @@ class Poetry:
         self.session.run("poetry", "build", *args, external=True)
 
 
+def install_package(session: Session) -> None:
+    """Build and install the package.
+
+    Build a wheel from the package, and install it into the virtual environment
+    of the specified Nox session.
+
+    The package requirements are installed using the versions specified in
+    Poetry's lock file.
+
+    Args:
+        session: The Session object.
+    """
+    poetry = Poetry(session)
+
+    with poetry.export() as requirements:
+        session.install(f"--requirement={requirements}")
+
+    poetry.build("--format=wheel")
+
+    version = poetry.version()
+    session.install(
+        "--no-deps", "--force-reinstall", f"dist/{package}-{version}-py3-none-any.whl"
+    )
+
 
 def install(session: Session, *args: str) -> None:
     """Install development dependencies into the session's virtual environment.
