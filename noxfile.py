@@ -55,6 +55,15 @@ class Poetry:
         )
         return output.split()[1]
 
+    def build(self, *args: str) -> None:
+        """Build the package.
+
+        Args:
+            args: Command-line arguments for ``poetry build``.
+        """
+        self.session.run("poetry", "build", *args, external=True)
+
+
 
 def install(session: Session, *args: str) -> None:
     """Install development dependencies into the session's virtual environment.
