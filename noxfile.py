@@ -1,6 +1,8 @@
 """Nox sessions."""
+import contextlib
 import tempfile
 from typing import Any
+from typing import Iterator
 
 import nox
 from nox.sessions import Session
@@ -9,6 +11,39 @@ from nox.sessions import Session
 package = "cookiecutter_hypermodern_python_instance"
 nox.options.sessions = "lint", "safety", "mypy", "pytype", "tests"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
+
+
+class Poetry:
+    """Helper class for invoking Poetry inside a Nox session.
+
+    Attributes:
+        session: The Session object.
+    """
+
+    def __init__(self, session: Session) -> None:
+        """Constructor."""
+        self.session = session
+
+    @contextlib.contextmanager
+    def export(self, *args: str) -> Iterator[str]:
+        """Export the lock file to requirements format.
+
+        Args:
+            args: Command-line arguments for ``poetry export``.
+
+        Yields:
+            The path to the requirements file.
+        """
+        with tempfile.NamedTemporaryFile() as requirements:
+            self.session.run(
+                "poetry",
+                "export",
+                *args,
+                "--format=requirements.txt",
+                f"--output={requirements.name}",
+                external=True,
+            )
+            yield requirements.name
 
 
 def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
