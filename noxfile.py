@@ -1,7 +1,6 @@
 """Nox sessions."""
 import contextlib
 import tempfile
-from typing import Any
 from typing import Iterator
 
 import nox
@@ -46,7 +45,7 @@ class Poetry:
             yield requirements.name
 
 
-def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
+def install_with_constraints(session: Session, *args: str) -> None:
     """Install development dependencies into the session's virtual environment.
 
     This function is a wrapper for nox.sessions.Session.install.
@@ -56,11 +55,10 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Non
     Args:
         session: The Session object.
         args: Command-line arguments for ``pip install``.
-        kwargs: Additional keyword arguments for Session.install.
     """
     poetry = Poetry(session)
     with poetry.export("--dev") as requirements:
-        session.install(f"--constraint={requirements}", *args, **kwargs)
+        session.install(f"--constraint={requirements}", *args)
 
 
 @nox.session(python="3.8")
