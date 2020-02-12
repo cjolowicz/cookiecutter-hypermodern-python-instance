@@ -62,16 +62,9 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Non
         kwargs: Additional keyword arguments for Session.install.
 
     """
-    with tempfile.NamedTemporaryFile() as requirements:
-        session.run(
-            "poetry",
-            "export",
-            "--dev",
-            "--format=requirements.txt",
-            f"--output={requirements.name}",
-            external=True,
-        )
-        session.install(f"--constraint={requirements.name}", *args, **kwargs)
+    poetry = Poetry(session)
+    with poetry.export("--dev") as requirements:
+        session.install(f"--constraint={requirements}", *args, **kwargs)
 
 
 @nox.session(python="3.8")
