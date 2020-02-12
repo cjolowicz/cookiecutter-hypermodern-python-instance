@@ -90,18 +90,10 @@ def lint(session: Session) -> None:
 @nox.session(python="3.8")
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages."""
-    with tempfile.NamedTemporaryFile() as requirements:
-        session.run(
-            "poetry",
-            "export",
-            "--dev",
-            "--format=requirements.txt",
-            "--without-hashes",
-            f"--output={requirements.name}",
-            external=True,
-        )
+    poetry = Poetry(session)
+    with poetry.export("--dev", "--without-hashes") as requirements:
         install(session, "safety")
-        session.run("safety", "check", f"--file={requirements.name}", "--bare")
+        session.run("safety", "check", f"--file={requirements}", "--bare")
 
 
 @nox.session(python=["3.8", "3.7"])
