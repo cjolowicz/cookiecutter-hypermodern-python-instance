@@ -44,6 +44,17 @@ class Poetry:
             )
             yield requirements.name
 
+    def version(self) -> str:
+        """Retrieve the package version.
+
+        Returns:
+            The package version.
+        """
+        output = self.session.run(
+            "poetry", "version", external=True, silent=True, stderr=None
+        )
+        return output.split()[1]
+
 
 def install(session: Session, *args: str) -> None:
     """Install development dependencies into the session's virtual environment.
