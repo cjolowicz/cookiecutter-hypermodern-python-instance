@@ -160,7 +160,7 @@ def pytype(session: Session) -> None:
 def tests(session: Session) -> None:
     """Run the test suite."""
     args = session.posargs or ["--cov"]
-    session.run("poetry", "install", "--no-dev", external=True)
+    install_package(session)
     install(session, "coverage[toml]", "pytest", "pytest-cov")
     session.run("pytest", *args)
 
@@ -168,7 +168,7 @@ def tests(session: Session) -> None:
 @nox.session(python=["3.8", "3.7"])
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
-    session.run("poetry", "install", "--no-dev", external=True)
+    install_package(session)
     install(session, "pytest", "typeguard")
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
@@ -177,7 +177,7 @@ def typeguard(session: Session) -> None:
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
-    session.run("poetry", "install", "--no-dev", external=True)
+    install_package(session)
     install(session, "xdoctest")
     session.run("python", "-m", "xdoctest", package, *args)
 
@@ -193,6 +193,6 @@ def coverage(session: Session) -> None:
 @nox.session(python="3.8")
 def docs(session: Session) -> None:
     """Build the documentation."""
-    session.run("poetry", "install", "--no-dev", external=True)
+    install_package(session)
     install(session, "sphinx", "sphinx-autodoc-typehints")
     session.run("sphinx-build", "docs", "docs/_build")
