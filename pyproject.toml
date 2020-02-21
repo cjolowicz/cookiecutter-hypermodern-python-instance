@@ -9,6 +9,9 @@ homepage = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instanc
 repository = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance"
 documentation = "https://cookiecutter-hypermodern-python-instance.readthedocs.io"
 
+[tool.poetry.urls]
+Changelog = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases"
+
 [tool.poetry.dependencies]
 python = "^3.7"
 click = "^7.0"
