@@ -1,3 +1,4 @@
+"""Main module."""
 from . import console
 
 
