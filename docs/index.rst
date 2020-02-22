@@ -7,6 +7,7 @@ Cookiecutter Hypermodern Python Instance
 
    license
    reference
+   Changelog <https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases>
 
 This package has a command-line interface.
 
