@@ -48,6 +48,7 @@ source = ["src", "*/site-packages"]
 [tool.coverage.run]
 branch = true
 source = ["cookiecutter_hypermodern_python_instance"]
+omit = ["*/cookiecutter_hypermodern_python_instance/__main__.py"]
 
 [tool.coverage.report]
 show_missing = true
