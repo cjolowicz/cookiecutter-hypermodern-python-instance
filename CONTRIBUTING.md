@@ -46,11 +46,11 @@ $ poetry install
 You can now run an interactive Python session,
 development tools,
 or the command-line interface
-using Poetry's *run* subcommand:
+using [poetry run](https://python-poetry.org/docs/cli/#run):
 
 ```sh
-$ poetry run cookiecutter-hypermodern-python-instance
 $ poetry run python
+$ poetry run cookiecutter-hypermodern-python-instance
 ```
 
 ## How to test the project
