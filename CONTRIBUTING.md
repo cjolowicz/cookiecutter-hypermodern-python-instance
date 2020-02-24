@@ -67,6 +67,13 @@ List the available Nox sessions:
 $ nox --list-sessions
 ```
 
+You can also run a specific Nox session.
+For example, invoke the unit test suite like this:
+
+```sh
+$ nox --session=tests
+```
+
 Unit tests are located in the `tests` directory,
 and are written using the [Pytest](https://pytest.readthedocs.io/) testing framework.
 
@@ -74,7 +81,7 @@ and are written using the [Pytest](https://pytest.readthedocs.io/) testing frame
 
 Please open a
 [Pull Request](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/pulls)
-on GitHub to submit changes to this project.
+to submit changes to this project.
 
 - [ ] Changes must be fully covered by unit tests.
 - [ ] Do not forget to update the documentation, where appropriate.
@@ -97,8 +104,7 @@ Before accepting a pull request, go through the following checklist:
 - [ ] The PR should be labelled with the kind of change (see below).
 
 Release notes are pre-filled with titles and authors of merged pull requests.
-
-Use labels to group the pull requests into sections:
+Labels group the pull requests into sections:
 
 | Label           | Section                                      |
 | ---             | ---                                          |
@@ -121,8 +127,8 @@ Use labels to group the pull requests into sections:
 Before making a release, go through the following checklist:
 
 - [ ] The master branch passes all checks.
-- [ ] All PRs for the release have been merged.
 - [ ] The development release on [TestPyPI](https://test.pypi.org/project/cookiecutter-hypermodern-python-instance) looks good.
+- [ ] All PRs for the release have been merged.
 
 Making a release is a two-step process:
 
@@ -145,5 +151,5 @@ To publish the release, follow these steps:
 After publishing the release, the following automated steps are triggered:
 
 - The Git tag is applied to the repository.
-- The Release workflow on GitHub Action triggers the PyPI upload.
+- The Release workflow on GitHub Actions triggers the PyPI upload.
 - Read the Docs builds a new stable version of the documentation.
