@@ -8,6 +8,7 @@ Cookiecutter Hypermodern Python Instance
    license
    reference
    Changelog <https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases>
+   Contributing <CONTRIBUTING>
    Code of Conduct <CODE_OF_CONDUCT>
 
 This package has a command-line interface.
