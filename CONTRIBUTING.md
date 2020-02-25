@@ -83,9 +83,9 @@ Please open a
 [Pull Request](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/pulls)
 to submit changes to this project.
 
-- [ ] Changes must be fully covered by unit tests.
-- [ ] Do not forget to update the documentation, where appropriate.
-- [ ] Follow [Black](https://black.readthedocs.io/) code style.
+- Changes must be fully covered by unit tests.
+- Do not forget to update the documentation, where appropriate.
+- Follow [Black](https://black.readthedocs.io/) code style.
 
 You can ensure that your changes adhere to the code style by reformatting with Black:
 
@@ -99,9 +99,9 @@ $ nox --session=black
 
 Before accepting a pull request, go through the following checklist:
 
-- [ ] The PR must pass all checks.
-- [ ] The PR must have a descriptive title.
-- [ ] The PR should be labelled with the kind of change (see below).
+- The PR must pass all checks.
+- The PR must have a descriptive title.
+- The PR should be labelled with the kind of change (see below).
 
 Release notes are pre-filled with titles and authors of merged pull requests.
 Labels group the pull requests into sections:
@@ -126,9 +126,9 @@ Labels group the pull requests into sections:
 
 Before making a release, go through the following checklist:
 
-- [ ] The master branch passes all checks.
-- [ ] The development release on [TestPyPI](https://test.pypi.org/project/cookiecutter-hypermodern-python-instance) looks good.
-- [ ] All PRs for the release have been merged.
+- The master branch passes all checks.
+- The development release on [TestPyPI](https://test.pypi.org/project/cookiecutter-hypermodern-python-instance) looks good.
+- All PRs for the release have been merged.
 
 Making a release is a two-step process:
 
