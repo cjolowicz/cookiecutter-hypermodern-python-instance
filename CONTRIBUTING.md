@@ -106,17 +106,17 @@ Before accepting a pull request, go through the following checklist:
 Release notes are pre-filled with titles and authors of merged pull requests.
 Labels group the pull requests into sections:
 
-- :boom: Breaking Changes (`breaking`)
-- :beetle: Fixes (`bug`)
-- :package: Build System and Dependencies (`build`)
-- :construction_worker: Continuous Integration (`ci`)
-- :books: Documentation (`documentation`)
-- :rocket: Features (`enhancement`)
-- :racehorse: Performance (`performance`)
-- :hammer: Refactoring (`refactoring`)
-- :fire: Removals and Deprecations (`removal`)
-- :lipstick: Style (`style`)
-- :rotating_light: Testing (`testing`)
+- 💥 Breaking Changes (`breaking`)
+- 🐞 Fixes (`bug`)
+- 📦 Build System and Dependencies (`build`)
+- 👷 Continuous Integration (`ci`)
+- 📚 Documentation (`documentation`)
+- 🚀 Features (`enhancement`)
+- 🐎 Performance (`performance`)
+- 🔨 Refactoring (`refactoring`)
+- 🔥 Removals and Deprecations (`removal`)
+- 💄 Style (`style`)
+- 🚨 Testing (`testing`)
 
 ## How to make a release
 
