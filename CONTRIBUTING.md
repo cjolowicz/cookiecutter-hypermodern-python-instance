@@ -75,7 +75,7 @@ $ nox --session=tests
 ```
 
 Unit tests are located in the `tests` directory,
-and are written using the [Pytest](https://pytest.readthedocs.io/) testing framework.
+and are written using the [pytest](https://pytest.readthedocs.io/) testing framework.
 
 ## How to submit changes
 
