@@ -4,12 +4,12 @@ Thank you for your interest in improving this project.
 This project is open-source under the [MIT License](https://opensource.org/licenses/MIT) and
 welcomes contributions in the form of bug reports, feature requests, and pull requests.
 
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
-By participating in this project you agree to abide by its terms.
+Here is a list of important resources for contributors:
 
 - [Source Code](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance)
 - [Documentation](https://cookiecutter-hypermodern-python-instance.readthedocs.io/)
 - [Issue Tracker](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## How to report a bug
 
@@ -75,16 +75,16 @@ $ nox --session=tests
 ```
 
 Unit tests are located in the `tests` directory,
-and are written using the [Pytest](https://pytest.readthedocs.io/) testing framework.
+and are written using the [pytest](https://pytest.readthedocs.io/) testing framework.
 
 ## How to submit changes
 
-Please open a
-[Pull Request](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/pulls)
+Open a [pull request](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/pulls)
 to submit changes to this project.
+Please check that your pull request meets these guidelines:
 
-- Changes must be fully covered by unit tests.
-- Do not forget to update the documentation, where appropriate.
+- Pull requests must include unit tests. This project maintains 100% test coverage.
+- If the pull request adds functionality, the documentation should be updated.
 - Follow [Black](https://black.readthedocs.io/) code style.
 
 You can ensure that your changes adhere to the code style by reformatting with Black:
@@ -92,6 +92,9 @@ You can ensure that your changes adhere to the code style by reformatting with B
 ```sh
 $ nox --session=black
 ```
+
+It is recommended to open an issue before starting work on anything.
+This will allow a chance to talk it over with the owners and validate your approach.
 
 ## How to accept changes
 
@@ -104,19 +107,21 @@ Before accepting a pull request, go through the following checklist:
 - The PR should be labelled with the kind of change (see below).
 
 Release notes are pre-filled with titles and authors of merged pull requests.
-Labels group the pull requests into sections:
+Labels group the pull requests into sections.
+The following list shows the available sections,
+with associated labels in parentheses:
 
 - 💥 Breaking Changes (`breaking`)
+- 🚀 Features (`enhancement`)
+- 🔥 Removals and Deprecations (`removal`)
 - 🐞 Fixes (`bug`)
-- 📦 Build System and Dependencies (`build`)
+- 🐎 Performance (`performance`)
+- 🚨 Testing (`testing`)
 - 👷 Continuous Integration (`ci`)
 - 📚 Documentation (`documentation`)
-- 🚀 Features (`enhancement`)
-- 🐎 Performance (`performance`)
 - 🔨 Refactoring (`refactoring`)
-- 🔥 Removals and Deprecations (`removal`)
 - 💄 Style (`style`)
-- 🚨 Testing (`testing`)
+- 📦 Build System and Dependencies (`build`)
 
 ## How to make a release
 
