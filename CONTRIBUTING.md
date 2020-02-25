@@ -107,16 +107,16 @@ Release notes are pre-filled with titles and authors of merged pull requests.
 Labels group the pull requests into sections:
 
 - 💥 Breaking Changes (`breaking`)
+- 🚀 Features (`enhancement`)
+- 🔥 Removals and Deprecations (`removal`)
 - 🐞 Fixes (`bug`)
-- 📦 Build System and Dependencies (`build`)
+- 🐎 Performance (`performance`)
+- 🚨 Testing (`testing`)
 - 👷 Continuous Integration (`ci`)
 - 📚 Documentation (`documentation`)
-- 🚀 Features (`enhancement`)
-- 🐎 Performance (`performance`)
 - 🔨 Refactoring (`refactoring`)
-- 🔥 Removals and Deprecations (`removal`)
 - 💄 Style (`style`)
-- 🚨 Testing (`testing`)
+- 📦 Build System and Dependencies (`build`)
 
 ## How to make a release
 
