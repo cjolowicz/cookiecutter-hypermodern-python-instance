@@ -104,7 +104,9 @@ Before accepting a pull request, go through the following checklist:
 - The PR should be labelled with the kind of change (see below).
 
 Release notes are pre-filled with titles and authors of merged pull requests.
-Labels group the pull requests into sections:
+Labels group the pull requests into sections.
+The following list shows the available sections,
+with associated labels in parenthesis:
 
 - 💥 Breaking Changes (`breaking`)
 - 🚀 Features (`enhancement`)
