@@ -109,7 +109,7 @@ Before accepting a pull request, go through the following checklist:
 Release notes are pre-filled with titles and authors of merged pull requests.
 Labels group the pull requests into sections.
 The following list shows the available sections,
-with associated labels in parenthesis:
+with associated labels in parentheses:
 
 - 💥 Breaking Changes (`breaking`)
 - 🚀 Features (`enhancement`)
