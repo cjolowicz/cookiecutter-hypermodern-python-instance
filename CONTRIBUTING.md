@@ -4,12 +4,11 @@ Thank you for your interest in improving this project.
 This project is open-source under the [MIT License](https://opensource.org/licenses/MIT) and
 welcomes contributions in the form of bug reports, feature requests, and pull requests.
 
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
-By participating in this project you agree to abide by its terms.
 
 - [Source Code](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance)
 - [Documentation](https://cookiecutter-hypermodern-python-instance.readthedocs.io/)
 - [Issue Tracker](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## How to report a bug
 
