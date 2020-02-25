@@ -4,6 +4,7 @@ Thank you for your interest in improving this project.
 This project is open-source under the [MIT License](https://opensource.org/licenses/MIT) and
 welcomes contributions in the form of bug reports, feature requests, and pull requests.
 
+Here is a list of important resources for contributors:
 
 - [Source Code](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance)
 - [Documentation](https://cookiecutter-hypermodern-python-instance.readthedocs.io/)
