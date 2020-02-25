@@ -79,12 +79,12 @@ and are written using the [pytest](https://pytest.readthedocs.io/) testing frame
 
 ## How to submit changes
 
-Please open a
-[Pull Request](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/pulls)
+Open a [pull request](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/pulls)
 to submit changes to this project.
+Please check that your pull request meets these guidelines:
 
-- Changes must be fully covered by unit tests.
-- Do not forget to update the documentation, where appropriate.
+- Pull requests must include unit tests. This project maintains 100% test coverage.
+- If the pull request adds functionality, the documentation should be updated.
 - Follow [Black](https://black.readthedocs.io/) code style.
 
 You can ensure that your changes adhere to the code style by reformatting with Black:
@@ -92,6 +92,9 @@ You can ensure that your changes adhere to the code style by reformatting with B
 ```sh
 $ nox --session=black
 ```
+
+It is recommended to open an issue before starting work on anything.
+This will allow a chance to talk it over with the owners and validate your approach.
 
 ## How to accept changes
 
