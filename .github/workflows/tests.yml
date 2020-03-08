@@ -15,12 +15,11 @@ jobs:
         sudo add-apt-repository ppa:deadsnakes/ppa
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends python3.9-dev python3.9-distutils
-        python --version
     - uses: actions/setup-python@v1
       if: matrix.python-version != '3.9'
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
-    - run: pip install nox==2019.11.9
-    - run: pip install poetry==1.0.3
+    - run: python${{ matrix.python-version }} -m pip install nox==2019.11.9
+    - run: python${{ matrix.python-version }} -m pip install poetry==1.0.3
     - run: nox
