@@ -15,13 +15,16 @@ jobs:
         sudo add-apt-repository ppa:deadsnakes/ppa
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends python3.9-dev python3.9-distutils
-        python${{ matrix.python-version }} -m pip install --upgrade pip setuptools
-        echo "::add-path::$HOME/.local/bin"
+        python3.9 -m pip install --upgrade pip setuptools
+        python3.9 -m pip install --upgrade virtualenv
+        python3.9 -m virtualenv $HOME/venv-python3.9
+        echo "::set-env name=VIRTUAL_ENV::$HOME/venv-python3.9"
+        echo "::add-path::$HOME/venv-python3.9/bin"
     - uses: actions/setup-python@v1
       if: matrix.python-version != '3.9'
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
-    - run: python${{ matrix.python-version }} -m pip install nox==2019.11.9
-    - run: python${{ matrix.python-version }} -m pip install poetry==1.0.3
+    - run: pip install nox==2019.11.9
+    - run: pip install poetry==1.0.3
     - run: nox
