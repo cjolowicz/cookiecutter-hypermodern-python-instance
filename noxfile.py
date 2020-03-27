@@ -8,7 +8,7 @@ from nox.sessions import Session
 
 
 package = "cookiecutter_hypermodern_python_instance"
-python_versions = ["3.9", "3.8", "3.7", "3.6"]
+python_versions = ["3.8", "3.7", "3.6"]
 nox.options.sessions = "lint", "safety", "mypy", "pytype", "tests"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
