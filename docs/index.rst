@@ -5,10 +5,11 @@ Cookiecutter Hypermodern Python Instance
    :hidden:
    :maxdepth: 1
 
-   license
    reference
-   Changelog <https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases>
+   CONTRIBUTING
    Code of Conduct <CODE_OF_CONDUCT>
+   license
+   Changelog <https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases>
 
 This package has a command-line interface.
 
