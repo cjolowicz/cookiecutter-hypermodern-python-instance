@@ -6,7 +6,7 @@ Cookiecutter Hypermodern Python Instance
    :maxdepth: 1
 
    reference
-   CONTRIBUTING
+   contributing
    Code of Conduct <codeofconduct>
    license
    Changelog <https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases>
