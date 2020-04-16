@@ -1,5 +1,5 @@
 Cookiecutter Hypermodern Python Instance
-==============================
+========================================
 
 .. toctree::
    :hidden:
