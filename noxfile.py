@@ -200,7 +200,13 @@ def docs(session: Session) -> None:
         shutil.rmtree(builddir)
 
     install_package(session)
-    install(session, "sphinx", "sphinx-autobuild", "sphinx-autodoc-typehints")
+    install(
+        session,
+        "recommonmark",
+        "sphinx",
+        "sphinx-autobuild",
+        "sphinx-autodoc-typehints",
+    )
 
     if session.interactive:
         session.run("sphinx-autobuild", *args)
