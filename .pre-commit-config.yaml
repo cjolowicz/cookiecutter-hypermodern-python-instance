@@ -23,7 +23,7 @@ repos:
         types: [python]
       - id: mypy
         name: mypy
-        entry: env MYPYPATH=src poetry run mypy
+        entry: poetry run mypy
         language: system
         types: [python]
         require_serial: true
