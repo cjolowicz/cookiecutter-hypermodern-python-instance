@@ -1,8 +1,7 @@
-|Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black|
-
-
 cookiecutter-hypermodern-python-instance
 ========================================
+
+|Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black|
 
 .. |Tests| image:: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Tests/badge.svg
    :target: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/actions?workflow=Tests
