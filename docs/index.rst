@@ -11,6 +11,10 @@ Cookiecutter Hypermodern Python Instance
    license
    Changelog <https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases>
 
+.. include:: ../README.rst
+   :start-after: badges-begin
+   :end-before: badges-end
+
 This package has a command-line interface.
 
 
