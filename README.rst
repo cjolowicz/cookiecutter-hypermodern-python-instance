@@ -1,6 +1,8 @@
 cookiecutter-hypermodern-python-instance
 ========================================
 
+.. badges-begin
+
 |Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black|
 
 .. |Tests| image:: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Tests/badge.svg
@@ -17,3 +19,5 @@ cookiecutter-hypermodern-python-instance
    :target: https://opensource.org/licenses/MIT
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
+
+.. badges-end
