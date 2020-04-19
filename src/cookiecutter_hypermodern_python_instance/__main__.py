@@ -1,5 +1,14 @@
-"""Main module."""
-from . import console
+"""Command-line interface."""
+import click
+
+from . import __version__
 
 
-console.main(prog_name="cookiecutter-hypermodern-python-instance")
+@click.command()
+@click.version_option(version=__version__)
+def main() -> None:
+    """Cookiecutter Hypermodern Python Instance."""
+
+
+if __name__ == "__main__":
+    main(prog_name="cookiecutter-hypermodern-python-instance")
