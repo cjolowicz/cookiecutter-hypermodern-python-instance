@@ -11,4 +11,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main(prog_name="cookiecutter-hypermodern-python-instance")
+    main(prog_name="cookiecutter-hypermodern-python-instance")  # pragma: no cover
