@@ -8,7 +8,7 @@ Cookiecutter Hypermodern Python Instance
    reference
    contributing
    Code of Conduct <codeofconduct>
-   license
+   License <license>
    Changelog <https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases>
 
 .. include:: ../README.rst
