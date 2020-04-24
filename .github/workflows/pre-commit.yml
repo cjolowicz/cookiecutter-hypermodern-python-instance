@@ -26,7 +26,7 @@ jobs:
           payload = sys.version.encode() + sys.executable.encode()
           digest = hashlib.sha256(payload).hexdigest()
 
-          print("::set-output name=result::pre-commit-{}".format(digest)
+          print("::set-output name=result::${{ runner.os }}-pre-commit-{}".format(digest))
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pre-commit
