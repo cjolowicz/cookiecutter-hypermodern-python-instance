@@ -17,16 +17,15 @@ jobs:
           poetry==1.0.5
           pre-commit==2.3.0
       - name: set ACTIONS_CACHE_KEY
+        shell: python
         run: |
-          echo "::set-env name=ACTIONS_CACHE_KEY::$(python -c '
           import hashlib
           import sys
 
           payload = sys.version.encode() + sys.executable.encode()
           digest = hashlib.sha256(payload).hexdigest()
 
-          print(digest)
-          ')"
+          print("::set-env name=ACTIONS_CACHE_KEY::{}".format(digest)
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pre-commit
