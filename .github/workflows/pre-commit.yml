@@ -31,5 +31,7 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: ${{ steps.cache_key_prefix.outputs.result }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ steps.cache_key_prefix.outputs.result }}-
       - run: poetry install --ansi
       - run: pre-commit run --all-files --show-diff-on-failure --color=always
