@@ -16,7 +16,8 @@ jobs:
           pip install
           poetry==1.0.5
           pre-commit==2.3.0
-      - name: set ACTIONS_CACHE_KEY
+      - name: Compute cache key prefix
+        id: cache_key_prefix
         shell: python
         run: |
           import hashlib
@@ -25,10 +26,10 @@ jobs:
           payload = sys.version.encode() + sys.executable.encode()
           digest = hashlib.sha256(payload).hexdigest()
 
-          print("::set-env name=ACTIONS_CACHE_KEY::{}".format(digest)
+          print("::set-output name=result::{}".format(digest)
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pre-commit
-          key: pre-commit-${{ env.ACTIONS_CACHE_KEY }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: pre-commit-${{ steps.cache_key_prefix.outputs.result }}-${{ hashFiles('.pre-commit-config.yaml') }}
       - run: poetry install --ansi
       - run: pre-commit run --all-files --show-diff-on-failure --color=always
