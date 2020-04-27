@@ -6,6 +6,12 @@ update_configs:
     allowed_updates:
       - match:
           update_type: "all"
+  - package_manager: "python"
+    directory: "/doc"
+    update_schedule: "daily"
+    allowed_updates:
+      - match:
+          update_type: "all"
   - package_manager: "github_actions"
     directory: "/"
     update_schedule: "daily"
