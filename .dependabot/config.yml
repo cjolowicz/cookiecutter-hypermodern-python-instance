@@ -7,7 +7,7 @@ update_configs:
       - match:
           update_type: "all"
   - package_manager: "python"
-    directory: "/doc"
+    directory: "/docs"
     update_schedule: "daily"
     allowed_updates:
       - match:
