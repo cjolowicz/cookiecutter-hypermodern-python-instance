@@ -1,13 +1,12 @@
 """Nox sessions."""
 import contextlib
-from pathlib import Path
 import shutil
 import tempfile
-from typing import cast, Iterator
+from pathlib import Path
+from typing import Iterator, cast
 
 import nox
 from nox.sessions import Session
-
 
 package = "cookiecutter_hypermodern_python_instance"
 python_versions = ["3.8", "3.7", "3.6"]
