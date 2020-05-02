@@ -117,6 +117,13 @@ def black(session: Session) -> None:
     session.run("black", *args)
 
 
+@nox.session(python="3.8")
+def isort(session: Session) -> None:
+    args = session.posargs or locations
+    install(session, "isort[pyproject]")
+    session.run("isort", "--recursive", *args)
+
+
 @nox.session(python=python_versions)
 def lint(session: Session) -> None:
     """Lint using flake8."""
