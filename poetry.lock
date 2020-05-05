@@ -607,7 +607,7 @@ description = "Tool for reordering python imports"
 name = "reorder-python-imports"
 optional = false
 python-versions = ">=3.6.1"
-version = "2.2.0"
+version = "2.3.0"
 
 [package.dependencies]
 "aspy.refactor-imports" = ">=2.1.0"
@@ -1240,8 +1240,8 @@ regex = [
     {file = "regex-2020.4.4.tar.gz", hash = "sha256:295badf61a51add2d428a46b8580309c520d8b26e769868b922750cf3ce67142"},
 ]
 reorder-python-imports = [
-    {file = "reorder_python_imports-2.2.0-py2.py3-none-any.whl", hash = "sha256:dea86d70e278797629599f8b12197a911fb436f03300fbb2a0fc5a8f11392862"},
-    {file = "reorder_python_imports-2.2.0.tar.gz", hash = "sha256:e078a0d70b23702cf26525dd54dac7004a7c6106b7ecd9ab433ca24db6980181"},
+    {file = "reorder_python_imports-2.3.0-py2.py3-none-any.whl", hash = "sha256:2e486b923257fb0690a90a0656b27b3957bfe946a89d1bdbd03f6bb43a15c3eb"},
+    {file = "reorder_python_imports-2.3.0.tar.gz", hash = "sha256:67cd3837a51d4c8fadf1e512d2315144760803c4ececc717f8d25a5873a25c51"},
 ]
 requests = [
     {file = "requests-2.23.0-py2.py3-none-any.whl", hash = "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee"},
