@@ -1,10 +1,9 @@
 """Nox sessions."""
 import contextlib
+from pathlib import Path
 import shutil
 import tempfile
-from pathlib import Path
-from typing import cast
-from typing import Iterator
+from typing import cast, Iterator
 
 import nox
 from nox.sessions import Session
@@ -129,6 +128,7 @@ def lint(session: Session) -> None:
         "flake8-black",
         "flake8-bugbear",
         "flake8-docstrings",
+        "flake8-import-order",
         "flake8-rst-docstrings",
         "pep8-naming",
         "darglint",
