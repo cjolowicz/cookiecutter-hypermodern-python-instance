@@ -25,6 +25,7 @@ version = "0.26.2"
 [[package]]
 category = "dev"
 description = "Atomic file writes."
+marker = "sys_platform == \"win32\""
 name = "atomicwrites"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
@@ -145,7 +146,7 @@ description = "A utility for ensuring Google-style docstrings stay up to date wi
 name = "darglint"
 optional = false
 python-versions = ">=3.5,<4.0"
-version = "1.2.3"
+version = "1.3.0"
 
 [[package]]
 category = "dev"
@@ -902,7 +903,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "476922e7d6a6ead6829b973a42bf750c5bb7c5a9d65e722e43a75a0f045927cc"
+content-hash = "941446cc0297f13bf6cf5b6553418c06a3a0864d23620c349e32408216d41277"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -988,8 +989,8 @@ coverage = [
     {file = "coverage-5.1.tar.gz", hash = "sha256:f90bfc4ad18450c80b024036eaf91e4a246ae287701aaa88eaebebf150868052"},
 ]
 darglint = [
-    {file = "darglint-1.2.3-py3-none-any.whl", hash = "sha256:cf56caa6cf059bd9cff798ee34cd6ac4b017d0c43760c15db42158fc31535de3"},
-    {file = "darglint-1.2.3.tar.gz", hash = "sha256:d1ab063da91987342c0e51b41028b4b5fc7fb72b04789e4534f7368a9146cd92"},
+    {file = "darglint-1.3.0-py3-none-any.whl", hash = "sha256:bb5b0c7e1b0dd4b16d1c355db61a230b68f5537e483cc9e8a8f4b925314b5fad"},
+    {file = "darglint-1.3.0.tar.gz", hash = "sha256:a20546d703c8608a260048c5721dad638e9d439d1aaaff1891ac3bfa6b2e8d96"},
 ]
 docutils = [
     {file = "docutils-0.16-py2.py3-none-any.whl", hash = "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af"},
