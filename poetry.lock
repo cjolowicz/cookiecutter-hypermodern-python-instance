@@ -24,17 +24,6 @@ version = "0.26.2"
 
 [[package]]
 category = "dev"
-description = "Utilities for refactoring imports in python-like syntax."
-name = "aspy.refactor-imports"
-optional = false
-python-versions = ">=3.6.1"
-version = "2.1.1"
-
-[package.dependencies]
-cached-property = "*"
-
-[[package]]
-category = "dev"
 description = "Atomic file writes."
 marker = "sys_platform == \"win32\""
 name = "atomicwrites"
@@ -66,14 +55,6 @@ version = "2.8.0"
 
 [package.dependencies]
 pytz = ">=2015.7"
-
-[[package]]
-category = "dev"
-description = "A decorator for caching properties in classes."
-name = "cached-property"
-optional = false
-python-versions = "*"
-version = "1.5.1"
 
 [[package]]
 category = "dev"
@@ -536,17 +517,6 @@ version = "5.3.1"
 
 [[package]]
 category = "dev"
-description = "Tool for reordering python imports"
-name = "reorder-python-imports"
-optional = false
-python-versions = ">=3.6.1"
-version = "2.3.0"
-
-[package.dependencies]
-"aspy.refactor-imports" = ">=2.1.0"
-
-[[package]]
-category = "dev"
 description = "Python HTTP for Humans."
 name = "requests"
 optional = false
@@ -849,7 +819,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "61f66a9790865544d9719821886730acbb0b7377147a1e4dc9b88b5a07ba4773"
+content-hash = "bfbed6bd04121505003c19aa1cb8d8bb94bb92ee0f4387036a462119b6ea90d3"
 python-versions = "^3.6.1"
 
 [metadata.files]
@@ -865,10 +835,6 @@ argh = [
     {file = "argh-0.26.2-py2.py3-none-any.whl", hash = "sha256:a9b3aaa1904eeb78e32394cd46c6f37ac0fb4af6dc488daa58971bdc7d7fcaf3"},
     {file = "argh-0.26.2.tar.gz", hash = "sha256:e9535b8c84dc9571a48999094fda7f33e63c3f1b74f3e5f3ac0105a58405bb65"},
 ]
-"aspy.refactor-imports" = [
-    {file = "aspy.refactor_imports-2.1.1-py2.py3-none-any.whl", hash = "sha256:9df76bf19ef81620068b785a386740ab3c8939fcbdcebf20c4a4e0057230d782"},
-    {file = "aspy.refactor_imports-2.1.1.tar.gz", hash = "sha256:eec8d1a73bedf64ffb8b589ad919a030c1fb14acf7d1ce0ab192f6eedae895c5"},
-]
 atomicwrites = [
     {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
     {file = "atomicwrites-1.4.0.tar.gz", hash = "sha256:ae70396ad1a434f9c7046fd2dd196fc04b12f9e91ffb859164193be8b6168a7a"},
@@ -880,10 +846,6 @@ attrs = [
 babel = [
     {file = "Babel-2.8.0-py2.py3-none-any.whl", hash = "sha256:d670ea0b10f8b723672d3a6abeb87b565b244da220d76b4dba1b66269ec152d4"},
     {file = "Babel-2.8.0.tar.gz", hash = "sha256:1aac2ae2d0d8ea368fa90906567f5c08463d98ade155c0c4bfedd6a0f7160e38"},
-]
-cached-property = [
-    {file = "cached-property-1.5.1.tar.gz", hash = "sha256:9217a59f14a5682da7c4b8829deadbfc194ac22e9908ccf7c8820234e80a1504"},
-    {file = "cached_property-1.5.1-py2.py3-none-any.whl", hash = "sha256:3a026f1a54135677e7da5ce819b0c690f156f37976f3e30c5430740725203d7f"},
 ]
 certifi = [
     {file = "certifi-2020.4.5.1-py2.py3-none-any.whl", hash = "sha256:1d987a998c75633c40847cc966fcf5904906c920a7f17ef374f5aa4282abd304"},
@@ -1115,10 +1077,6 @@ pyyaml = [
     {file = "PyYAML-5.3.1-cp38-cp38-win32.whl", hash = "sha256:06a0d7ba600ce0b2d2fe2e78453a470b5a6e000a985dd4a4e54e436cc36b0e97"},
     {file = "PyYAML-5.3.1-cp38-cp38-win_amd64.whl", hash = "sha256:95f71d2af0ff4227885f7a6605c37fd53d3a106fcab511b8860ecca9fcf400ee"},
     {file = "PyYAML-5.3.1.tar.gz", hash = "sha256:b8eac752c5e14d3eca0e6dd9199cd627518cb5ec06add0de9d32baeee6fe645d"},
-]
-reorder-python-imports = [
-    {file = "reorder_python_imports-2.3.0-py2.py3-none-any.whl", hash = "sha256:2e486b923257fb0690a90a0656b27b3957bfe946a89d1bdbd03f6bb43a15c3eb"},
-    {file = "reorder_python_imports-2.3.0.tar.gz", hash = "sha256:67cd3837a51d4c8fadf1e512d2315144760803c4ececc717f8d25a5873a25c51"},
 ]
 requests = [
     {file = "requests-2.23.0-py2.py3-none-any.whl", hash = "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee"},

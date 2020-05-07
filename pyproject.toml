@@ -26,7 +26,6 @@ typeguard = "^2.7.1"
 xdoctest = "^0.12.0"
 sphinx = "^3.0.3"
 sphinx-autobuild = "^0.7.1"
-reorder-python-imports = "^2.2.0"
 pre-commit = "^2.3.0"
 
 [tool.poetry.scripts]
