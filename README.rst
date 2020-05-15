@@ -1,7 +1,5 @@
-cookiecutter-hypermodern-python-instance
+Cookiecutter Hypermodern Python Instance
 ========================================
-
-.. badges-begin
 
 |Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black| |pre-commit| |Dependabot|
 
@@ -33,4 +31,67 @@ cookiecutter-hypermodern-python-instance
    :target: https://dependabot.com
    :alt: Dependabot
 
-.. badges-end
+
+Features
+--------
+
+* TODO
+
+
+Requirements
+------------
+
+* TODO
+
+
+Installation
+------------
+
+You can install *Cookiecutter Hypermodern Python Instance* via pip_ from PyPI_:
+
+.. code:: console
+
+   $ pip install cookiecutter-hypermodern-python-instance
+
+
+Usage
+-----
+
+* TODO
+
+
+Contributing
+------------
+
+Contributions are very welcome.
+To learn more, see the `Contributor Guide`_.
+
+
+License
+-------
+
+Distributed under the terms of the MIT_ license,
+*Cookiecutter Hypermodern Python Instance* is free and open source software.
+
+
+Issues
+------
+
+If you encounter any problems,
+please `file an issue`_ along with a detailed description.
+
+
+Credits
+-------
+
+This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter`_ template.
+
+
+.. _@cjolowicz: https://github.com/cjolowicz
+.. _Contributor Guide: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/blob/master/CONTRIBUTING.rst
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _MIT: http://opensource.org/licenses/MIT
+.. _PyPI: https://pypi.org/
+.. _Hypermodern Python Cookiecutter: https://github.com/cjolowicz/cookiecutter-hypermodern-python
+.. _file an issue: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues
+.. _pip: https://pip.pypa.io/
