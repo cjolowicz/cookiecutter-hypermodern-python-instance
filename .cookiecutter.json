@@ -1,5 +1,5 @@
 {
-  "_template": "cookiecutter-hypermodern-python",
+  "_template": "https://github.com/cjolowicz/cookiecutter-hypermodern-python",
   "author": "Claudio Jolowicz",
   "email": "mail@claudiojolowicz.com",
   "friendly_name": "Cookiecutter Hypermodern Python Instance",
