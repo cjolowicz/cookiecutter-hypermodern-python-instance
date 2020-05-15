@@ -88,10 +88,11 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 
 
 .. _@cjolowicz: https://github.com/cjolowicz
-.. _Contributor Guide: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/blob/master/CONTRIBUTING.rst
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _MIT: http://opensource.org/licenses/MIT
 .. _PyPI: https://pypi.org/
 .. _Hypermodern Python Cookiecutter: https://github.com/cjolowicz/cookiecutter-hypermodern-python
 .. _file an issue: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues
 .. _pip: https://pip.pypa.io/
+.. github-only
+.. _Contributor Guide: CONTRIBUTING.rst
