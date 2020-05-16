@@ -67,7 +67,7 @@ jobs:
         if: steps.check-version.outputs.tag
         uses: release-drafter/release-drafter@v5.8.0
         with:
-          publish: true
+          publish: "true"
           tag: ${{ steps.check-version.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
