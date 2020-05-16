@@ -45,7 +45,6 @@ jobs:
           poetry version $version.dev.$(date +%s)
 
       - name: Build package
-        if: steps.check-version.outputs.tag
         run: |
           poetry build --ansi
 
