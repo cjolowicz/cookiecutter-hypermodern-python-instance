@@ -148,7 +148,7 @@ def tests(session: Session) -> None:
 @nox.session
 def coverage(session: Session) -> None:
     """Produce the coverage report."""
-    args = session.posargs or ["report"]
+    args = session.posargs or ["report" if session.interactive else "xml"]
     install(session, "coverage[toml]")
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
