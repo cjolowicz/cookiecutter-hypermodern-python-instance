@@ -1,4 +1,3 @@
-
 Cookiecutter Hypermodern Python Instance
 ========================================
 
