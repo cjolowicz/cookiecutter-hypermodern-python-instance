@@ -13,7 +13,7 @@ from nox.sessions import Session
 
 package = "cookiecutter_hypermodern_python_instance"
 python_versions = ["3.8", "3.7", "3.6"]
-nox.options.sessions = "pre-commit", "safety", "mypy", "tests"
+nox.options.sessions = "pre-commit", "safety", "mypy", "tests", "typeguard"
 
 
 class Poetry:
