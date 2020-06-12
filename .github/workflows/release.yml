@@ -41,7 +41,15 @@ jobs:
         uses: salsify/action-detect-and-tag-new-version@v1.0.3
         with:
           version-command: |
-            bash -o pipefail -c "poetry version | awk '\$2 != \"0.0.0\" { print \$2 }'"
+            if output=$(poetry version)
+            then
+                version="${output#* }"
+
+                if [ "$version" != 0.0.0 ]
+                then
+                    echo "$version"
+                fi
+            fi
 
       - name: Bump version for developmental release
         if: "! steps.check-version.outputs.tag"
