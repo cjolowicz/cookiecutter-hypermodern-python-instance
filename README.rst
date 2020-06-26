@@ -1,35 +1,39 @@
 Cookiecutter Hypermodern Python Instance
 ========================================
 
-|Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black| |pre-commit| |Dependabot|
+|PyPI| |Python Version| |License|
 
-.. |Tests| image:: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Tests/badge.svg
-   :target: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/actions?workflow=Tests
-   :alt: Tests
-.. |Codecov| image:: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance
-   :alt: Codecov
+|Read the Docs| |Tests| |Codecov|
+
+|pre-commit| |Dependabot| |Black|
+
 .. |PyPI| image:: https://img.shields.io/pypi/v/cookiecutter-hypermodern-python-instance.svg
    :target: https://pypi.org/project/cookiecutter-hypermodern-python-instance/
    :alt: PyPI
 .. |Python Version| image:: https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance
    :target: https://pypi.org/project/cookiecutter-hypermodern-python-instance
    :alt: Python Version
-.. |Read the Docs| image:: https://readthedocs.org/projects/cookiecutter-hypermodern-python-instance/badge/
-   :target: https://cookiecutter-hypermodern-python-instance.readthedocs.io/
-   :alt: Read the Docs
 .. |License| image:: https://img.shields.io/pypi/l/cookiecutter-hypermodern-python-instance
    :target: https://opensource.org/licenses/MIT
    :alt: License
-.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-   :target: https://github.com/psf/black
-   :alt: Black
+.. |Read the Docs| image:: https://img.shields.io/readthedocs/cookiecutter-hypermodern-python-instance/latest.svg?label=Read%20the%20Docs
+   :target: https://cookiecutter-hypermodern-python-instance.readthedocs.io/
+   :alt: Read the documentation at https://cookiecutter-hypermodern-python-instance.readthedocs.io/
+.. |Tests| image:: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Tests/badge.svg
+   :target: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/actions?workflow=Tests
+   :alt: Tests
+.. |Codecov| image:: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance
+   :alt: Codecov
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
 .. |Dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=cjolowicz/cookiecutter-hypermodern-python-instance
    :target: https://dependabot.com
    :alt: Dependabot
+.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Black
 
 
 Features
