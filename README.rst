@@ -5,7 +5,7 @@ Cookiecutter Hypermodern Python Instance
 
 |Read the Docs| |Tests| |Codecov|
 
-|pre-commit| |Dependabot| |Black|
+|pre-commit| |Black|
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/cookiecutter-hypermodern-python-instance.svg
    :target: https://pypi.org/project/cookiecutter-hypermodern-python-instance/
@@ -28,9 +28,6 @@ Cookiecutter Hypermodern Python Instance
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
-.. |Dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=cjolowicz/cookiecutter-hypermodern-python-instance
-   :target: https://dependabot.com
-   :alt: Dependabot
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
    :alt: Black
