@@ -55,10 +55,16 @@ You can install *Cookiecutter Hypermodern Python Instance* via pip_ from PyPI_:
    $ pip install cookiecutter-hypermodern-python-instance
 
 
-Usage
------
+.. basic-usage
+
+Basic usage
+-----------
 
 * TODO
+
+.. end-basic-usage
+
+Complete instructions can be found at `cookiecutter-hypermodern-python-instance.readthedocs.io`_.
 
 
 Contributing
@@ -95,5 +101,6 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _Hypermodern Python Cookiecutter: https://github.com/cjolowicz/cookiecutter-hypermodern-python
 .. _file an issue: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues
 .. _pip: https://pip.pypa.io/
+.. _cookiecutter-hypermodern-python-instance.readthedocs.io: https://cookiecutter-hypermodern-python-instance.readthedocs.io
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
