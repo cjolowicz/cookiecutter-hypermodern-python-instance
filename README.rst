@@ -58,7 +58,7 @@ You can install *Cookiecutter Hypermodern Python Instance* via pip_ from PyPI_:
 Usage
 -----
 
-* TODO
+Please see the `Command-line Reference <Usage_>`_ for details.
 
 
 Contributing
@@ -97,3 +97,4 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _pip: https://pip.pypa.io/
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
+.. _Usage: https://cookiecutter-hypermodern-python-instance.readthedocs.io/en/latest/usage.html
