@@ -14,10 +14,12 @@ jobs:
         include:
           - { python-version: 3.9, os: ubuntu-latest, session: "pre-commit" }
           - { python-version: 3.9, os: ubuntu-latest, session: "safety" }
+          - { python-version: "3.10", os: ubuntu-latest, session: "mypy" }
           - { python-version: 3.9, os: ubuntu-latest, session: "mypy" }
           - { python-version: 3.8, os: ubuntu-latest, session: "mypy" }
           - { python-version: 3.7, os: ubuntu-latest, session: "mypy" }
           - { python-version: 3.6, os: ubuntu-latest, session: "mypy" }
+          - { python-version: "3.10", os: ubuntu-latest, session: "tests" }
           - { python-version: 3.9, os: ubuntu-latest, session: "tests" }
           - { python-version: 3.8, os: ubuntu-latest, session: "tests" }
           - { python-version: 3.7, os: ubuntu-latest, session: "tests" }
@@ -38,7 +40,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2.1.4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python-version == '3.10' && '3.10.0-alpha.2' || matrix.python-version }}
 
       - name: Upgrade pip
         run: |
@@ -80,6 +82,7 @@ jobs:
             ${{ steps.pre-commit-cache.outputs.result }}-
 
       - name: Run Nox
+        continue-on-error: ${{ matrix.python-version == '3.10' }}
         run: |
           nox --force-color --python=${{ matrix.python-version }}
 
