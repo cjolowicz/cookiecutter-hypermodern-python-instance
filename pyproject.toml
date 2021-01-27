@@ -21,6 +21,7 @@ Changelog = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instan
 [tool.poetry.dependencies]
 python = "^3.6.1"
 click = "^7.0"
+cached-property = "^1.5.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
