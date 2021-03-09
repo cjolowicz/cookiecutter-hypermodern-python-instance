@@ -4,6 +4,7 @@
   "email": "mail@claudiojolowicz.com",
   "friendly_name": "Cookiecutter Hypermodern Python Instance",
   "github_user": "cjolowicz",
+  "license": "MIT",
   "package_name": "cookiecutter_hypermodern_python_instance",
   "project_name": "cookiecutter-hypermodern-python-instance",
   "version": "0.0.0"

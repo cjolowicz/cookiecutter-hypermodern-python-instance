@@ -22,7 +22,7 @@ Cookiecutter Hypermodern Python Instance
 .. |Tests| image:: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Tests/badge.svg
    :target: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/actions?workflow=Tests
    :alt: Tests
-.. |Codecov| image:: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance/branch/master/graph/badge.svg
+.. |Codecov| image:: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance
    :alt: Codecov
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
@@ -71,7 +71,7 @@ To learn more, see the `Contributor Guide`_.
 License
 -------
 
-Distributed under the terms of the MIT_ license,
+Distributed under the terms of the `MIT license`_,
 *Cookiecutter Hypermodern Python Instance* is free and open source software.
 
 
@@ -87,10 +87,9 @@ Credits
 
 This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter`_ template.
 
-
 .. _@cjolowicz: https://github.com/cjolowicz
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _MIT: http://opensource.org/licenses/MIT
+.. _MIT license: https://opensource.org/licenses/MIT
 .. _PyPI: https://pypi.org/
 .. _Hypermodern Python Cookiecutter: https://github.com/cjolowicz/cookiecutter-hypermodern-python
 .. _file an issue: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues
