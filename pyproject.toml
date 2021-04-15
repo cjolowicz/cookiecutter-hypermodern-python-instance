@@ -52,7 +52,7 @@ source = ["src", "*/site-packages"]
 
 [tool.coverage.run]
 branch = true
-source = ["cookiecutter_hypermodern_python_instance"]
+source = ["cookiecutter_hypermodern_python_instance", "tests"]
 
 [tool.coverage.report]
 show_missing = true
