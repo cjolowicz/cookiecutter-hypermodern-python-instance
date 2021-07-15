@@ -1,7 +1,7 @@
 Cookiecutter Hypermodern Python Instance
 ========================================
 
-|PyPI| |Python Version| |License|
+|PyPI| |Status| |Python Version| |License|
 
 |Read the Docs| |Tests| |Codecov|
 
@@ -10,6 +10,9 @@ Cookiecutter Hypermodern Python Instance
 .. |PyPI| image:: https://img.shields.io/pypi/v/cookiecutter-hypermodern-python-instance.svg
    :target: https://pypi.org/project/cookiecutter-hypermodern-python-instance/
    :alt: PyPI
+.. |Status| image:: https://img.shields.io/pypi/status/cookiecutter-hypermodern-python-instance.svg
+   :target: https://pypi.org/project/cookiecutter-hypermodern-python-instance/
+   :alt: Status
 .. |Python Version| image:: https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance
    :target: https://pypi.org/project/cookiecutter-hypermodern-python-instance
    :alt: Python Version

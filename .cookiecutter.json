@@ -1,6 +1,7 @@
 {
   "_template": "https://github.com/cjolowicz/cookiecutter-hypermodern-python",
   "author": "Claudio Jolowicz",
+  "development_status": "Development Status :: 1 - Planning",
   "email": "mail@claudiojolowicz.com",
   "friendly_name": "Cookiecutter Hypermodern Python Instance",
   "github_user": "cjolowicz",

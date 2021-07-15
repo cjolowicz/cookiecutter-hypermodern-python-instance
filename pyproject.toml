@@ -9,6 +9,7 @@ homepage = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instanc
 repository = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance"
 documentation = "https://cookiecutter-hypermodern-python-instance.readthedocs.io"
 classifiers = [
+    "Development Status :: 1 - Planning",
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
