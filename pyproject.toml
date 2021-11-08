@@ -10,18 +10,13 @@ repository = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-insta
 documentation = "https://cookiecutter-hypermodern-python-instance.readthedocs.io"
 classifiers = [
     "Development Status :: 1 - Planning",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
 ]
 
 [tool.poetry.urls]
 Changelog = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/releases"
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7"
 click = "^8.0.1"
 
 [tool.poetry.dev-dependencies]
