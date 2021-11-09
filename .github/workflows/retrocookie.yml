@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Check out ${{ env.PROJECT }}
         uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 2
       - name: Check if cutty.json or retrocookie.yml changed
         id: skip
         run: |
