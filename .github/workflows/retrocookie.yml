@@ -21,15 +21,11 @@ jobs:
       - name: Check if cutty.json or retrocookie.yml changed
         id: skip
         run: |
-          git show ${GITHUB_SHA}
-
           if git diff-tree --no-commit-id --quiet ${GITHUB_SHA} cutty.json .github/workflows/retrocookie.yml
           then
-            echo "setting output skip to toJSON(false)=${{ toJSON(false) }}"
-            echo ::set-output name=skip::${{ toJSON(false) }}
+            echo ::set-output name=skip::false
           else
-            echo "setting output skip to toJSON(true)=${{ toJSON(true) }}"
-            echo ::set-output name=skip::${{ toJSON(true) }}
+            echo ::set-output name=skip::true
           fi
   retrocookie:
     name: Retrocookie
@@ -37,9 +33,6 @@ jobs:
     needs: skip
     if: "!fromJSON(needs.skip.outputs.skip)"
     steps:
-      - name: Debug
-        run: |
-          echo "fromJSON(needs.skip.outputs.skip)=${{ fromJSON(needs.skip.outputs.skip) }}"
       - name: Check out ${{ env.PROJECT }}
         uses: actions/checkout@v2.4.0
         with:
