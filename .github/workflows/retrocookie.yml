@@ -37,6 +37,7 @@ jobs:
         uses: actions/checkout@v2.4.0
         with:
           path: ${{ env.PROJECT }}
+          fetch-depth: 2
       - name: Check out ${{ env.TEMPLATE }}
         uses: actions/checkout@v2.4.0
         with:
