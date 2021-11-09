@@ -14,12 +14,12 @@ jobs:
     outputs:
       skip: ${{ steps.skip.outputs.skip }}
     steps:
-      - name: Check out ${{ env.TEMPLATE }}
+      - name: Check out ${{ env.PROJECT }}
         uses: actions/checkout@v2.4.0
       - name: Check if cutty.json or retrocookie.yml changed
         id: skip
         run: |
-          git diff-tree ${GITHUB_SHA} cutty.json .github/workflows/retrocookie.yml
+          git show ${GITHUB_SHA}
 
           if git diff-tree --no-commit-id --quiet ${GITHUB_SHA} cutty.json .github/workflows/retrocookie.yml
           then
