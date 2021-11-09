@@ -1,0 +1,18 @@
+{
+  "template": {
+    "location": "https://github.com/cjolowicz/cookiecutter-hypermodern-python",
+    "revision": "ccbf71ec5b31600b3610725db271efe910395ce6",
+    "directory": null
+  },
+  "bindings": {
+    "project_name": "cookiecutter-hypermodern-python-instance",
+    "package_name": "cookiecutter_hypermodern_python_instance",
+    "friendly_name": "Cookiecutter Hypermodern Python Instance",
+    "author": "Claudio Jolowicz",
+    "email": "mail@claudiojolowicz.com",
+    "github_user": "cjolowicz",
+    "version": "0.0.0",
+    "license": "MIT",
+    "development_status": "Development Status :: 1 - Planning"
+  }
+}
