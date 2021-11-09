@@ -60,9 +60,5 @@ jobs:
           GIT_COMMITTER_NAME: "GitHub Action"
           GIT_COMMITTER_EMAIL: "action@github.com"
       - name: Push to cjolowicz/${{ env.TEMPLATE }}
-        run: >-
-          git
-          -C $TEMPLATE
-          push
-          https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/cjolowicz/$TEMPLATE.git
-          HEAD:main
+        run: |
+          git -C $TEMPLATE push https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/cjolowicz/$TEMPLATE.git HEAD:main
