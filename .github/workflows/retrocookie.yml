@@ -26,20 +26,20 @@ jobs:
             echo ::set-output name=skip::true
           fi
   retrocookie:
-    name: Update template
+    name: Retrocookie
     runs-on: ubuntu-latest
     needs: skip
     if: needs.skip.outputs.skip == 'false'
     steps:
-      - name: Check out ${{ env.TEMPLATE }}
-        uses: actions/checkout@v2.4.0
-        with:
-          path: ${{ env.TEMPLATE }}
       - name: Check out ${{ env.PROJECT }}
         uses: actions/checkout@v2.4.0
         with:
-          repository: "cjolowicz/${{ env.PROJECT }}"
           path: ${{ env.PROJECT }}
+      - name: Check out ${{ env.TEMPLATE }}
+        uses: actions/checkout@v2.4.0
+        with:
+          repository: "cjolowicz/${{ env.TEMPLATE }}"
+          path: ${{ env.TEMPLATE }}
           token: ${{ secrets.X_GITHUB_TOKEN }}
       - name: Set up Python 3.10
         uses: actions/setup-python@v2.2.2
