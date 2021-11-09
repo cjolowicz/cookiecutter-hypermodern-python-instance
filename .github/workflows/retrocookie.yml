@@ -56,6 +56,12 @@ jobs:
       - name: Import commit into ${{ env.TEMPLATE }}
         run: |
           retrocookie -C ${TEMPLATE} ${PROJECT} ${GITHUB_SHA}
+
+          message="$(git -C ${PROJECT} show --no-patch --format=%B ${GITHUB_SHA} | sed 's/ *(#[0-9]\+)//g')
+
+          Retrocookie-Original-Commit: ${GITHUB_REPOSITORY}@${GITHUB_SHA::7}"
+
+          git -C ${TEMPLATE} commit --amend --message="$message"
         env:
           GIT_COMMITTER_NAME: "GitHub Action"
           GIT_COMMITTER_EMAIL: "action@github.com"
