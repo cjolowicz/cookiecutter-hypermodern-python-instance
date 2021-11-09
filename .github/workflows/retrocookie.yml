@@ -21,15 +21,15 @@ jobs:
         run: |
           if git diff-tree --no-commit-id --quiet ${GITHUB_SHA} cutty.json .github/workflows/retrocookie.yml
           then
-            echo ::set-output name=skip::false
+            echo ::set-output name=skip::${{ toJSON(false) }}
           else
-            echo ::set-output name=skip::true
+            echo ::set-output name=skip::${{ toJSON(true) }}
           fi
   retrocookie:
     name: Retrocookie
     runs-on: ubuntu-latest
     needs: skip
-    if: needs.skip.outputs.skip == 'false'
+    if: "!fromJSON(needs.skip.outputs.skip)"
     steps:
       - name: Check out ${{ env.PROJECT }}
         uses: actions/checkout@v2.4.0
