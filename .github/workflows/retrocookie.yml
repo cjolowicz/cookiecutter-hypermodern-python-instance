@@ -21,11 +21,11 @@ jobs:
       - name: Check if cutty.json or retrocookie.yml changed
         id: skip
         run: |
-          if git diff-tree --no-commit-id --quiet ${GITHUB_SHA} cutty.json .github/workflows/retrocookie.yml
+          if git diff-tree --no-commit-id --name-only HEAD | grep -Eq '^(cutty.json|.github/workflows/retrocookie.yml)$'
           then
-            echo ::set-output name=skip::false
-          else
             echo ::set-output name=skip::true
+          else
+            echo ::set-output name=skip::false
           fi
   retrocookie:
     name: Retrocookie
