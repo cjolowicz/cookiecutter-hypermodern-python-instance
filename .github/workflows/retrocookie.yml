@@ -3,13 +3,13 @@ on:
   push:
     branches:
       - main
-concurrency: serialized
+concurrency: serialize
 env:
   TEMPLATE: cookiecutter-hypermodern-python
   PROJECT: cookiecutter-hypermodern-python-instance
 jobs:
   skip:
-    name: Skip workflow if cutty.json or retrocookie.yml changed
+    name: Skip workflow if cutty.json changed
     runs-on: ubuntu-latest
     outputs:
       skip: ${{ steps.skip.outputs.skip }}
@@ -18,11 +18,10 @@ jobs:
         uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 2
-      - name: Check if cutty.json or retrocookie.yml changed
+      - name: Check if cutty.json changed
         id: skip
         run: |
-          if git show --pretty= --name-only ${GITHUB_SHA} |
-            grep -Eq '^(cutty\.json|\.github/workflows/retrocookie\.yml)$'
+          if git show --pretty= --name-only ${GITHUB_SHA} | grep -Eq '^cutty\.json$'
           then
             echo ::set-output name=skip::true
           else
