@@ -1,10 +1,6 @@
 Reference
 =========
 
-.. contents::
-    :local:
-    :backlinks: none
-
 
 cookiecutter_hypermodern_python_instance.__main__
 -------------------------------------------------
