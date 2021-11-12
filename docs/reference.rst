@@ -2,8 +2,8 @@ Reference
 =========
 
 
-cookiecutter_hypermodern_python_instance.__main__
--------------------------------------------------
+cookiecutter_hypermodern_python_instance
+----------------------------------------
 
-.. automodule:: cookiecutter_hypermodern_python_instance.__main__
+.. automodule:: cookiecutter_hypermodern_python_instance
    :members:
