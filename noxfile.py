@@ -34,8 +34,12 @@ nox.options.sessions = (
 )
 
 
-def build(self: nox_poetry.poetry.Poetry) -> str:
-    """Build the package.
+def build_package(self: nox_poetry.sessions._PoetrySession) -> str:
+    """Build a distribution archive for the package.
+
+    This function uses `poetry build`_ to build a wheel for the local package,
+    as specified via the ``distribution_format`` parameter. It returns a file
+    URL with the absolute path to the built archive.
 
     The filename of the archive is extracted from the output Poetry writes
     to standard output, which currently looks like this::
@@ -49,13 +53,15 @@ def build(self: nox_poetry.poetry.Poetry) -> str:
     reconstructing the filename from the package metadata. (Poetry does not
     use PEP 440 for version numbers, so this is non-trivial.)
 
+    .. _poetry build: https://python-poetry.org/docs/cli/#export
+
     Returns:
-        The basename of the wheel built by Poetry.
+        The file URL for the distribution package.
 
     Raises:
         CommandSkippedError: The command `poetry build` was not executed.
     """
-    output = self.session.run_always(
+    output = self.poetry.session.run_always(  # type: ignore[attr-defined]
         "poetry",
         "build",
         "--format=wheel",
@@ -71,25 +77,8 @@ def build(self: nox_poetry.poetry.Poetry) -> str:
         )
 
     assert isinstance(output, str)  # noqa: S101
-    return output.split()[-1]
 
-
-def build_package(self: nox_poetry.sessions._PoetrySession) -> str:
-    """Build a distribution archive for the package.
-
-    This function uses `poetry build`_ to build a wheel for the local package,
-    as specified via the ``distribution_format`` parameter. It returns a file
-    URL with the absolute path to the built archive.
-
-    .. _poetry build: https://python-poetry.org/docs/cli/#export
-
-    Args:
-        distribution_format: The distribution format, either wheel or sdist.
-
-    Returns:
-        The file URL for the distribution package.
-    """
-    wheel = Path("dist") / build(self.poetry)  # type: ignore[attr-defined]
+    wheel = Path("dist") / output.split()[-1]
     url: str = wheel.resolve().as_uri()
 
     return url
