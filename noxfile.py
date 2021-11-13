@@ -97,12 +97,13 @@ def export(self: nox_poetry.poetry.Poetry) -> str:
     Raises:
         CommandSkippedError: The command `poetry export` was not executed.
     """
+    config = nox_poetry.poetry.Config(Path.cwd())
     output = self.session.run_always(
         "poetry",
         "export",
         "--format=requirements.txt",
         "--dev",
-        *[f"--extras={extra}" for extra in self.config.extras],
+        *[f"--extras={extra}" for extra in config.extras],
         "--without-hashes",
         external=True,
         silent=True,
