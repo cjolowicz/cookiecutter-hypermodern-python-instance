@@ -107,7 +107,7 @@ def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
     # Avoid ``session.virtualenv.location`` because PassthroughEnv does not
     # have it. We'll just create a fake virtualenv directory in this case.
 
-    tmpdir = Path(self.session._runner.envdir) / "tmp"
+    tmpdir = Path(self.session._runner.envdir) / "tmp"  # type: ignore[attr-defined]
     tmpdir.mkdir(exist_ok=True, parents=True)
 
     path = tmpdir / "requirements.txt"
@@ -117,7 +117,7 @@ def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
     digest = hashlib.blake2b(lockdata).hexdigest()
 
     if not hashfile.is_file() or hashfile.read_text() != digest:
-        path.write_text(self.poetry.export())
+        path.write_text(self.poetry.export())  # type: ignore[attr-defined]
         hashfile.write_text(digest)
 
     return path
