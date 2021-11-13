@@ -184,12 +184,18 @@ def xdoctest(session: nox.Session) -> None:
     session.run("python", "-m", "xdoctest", package, *args)
 
 
-@session(name="docs-build", python="3.10")
-def docs_build(session: Session) -> None:
+@nox.session(name="docs-build", python="3.10")
+def docs_build(session: nox.Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
-    session.install(".")
-    session.install("sphinx", "sphinx-click", "furo")
+    session.run(
+        "poetry",
+        "install",
+        "--with",
+        "docs",
+        "--sync",
+        external=True,
+    )
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
@@ -198,12 +204,18 @@ def docs_build(session: Session) -> None:
     session.run("sphinx-build", *args)
 
 
-@session(python="3.10")
-def docs(session: Session) -> None:
+@nox.session(python="3.10")
+def docs(session: nox.Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
-    session.install(".")
-    session.install("sphinx", "sphinx-autobuild", "sphinx-click", "furo")
+    session.run(
+        "poetry",
+        "install",
+        "--with",
+        "docs",
+        "--sync",
+        external=True,
+    )
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
