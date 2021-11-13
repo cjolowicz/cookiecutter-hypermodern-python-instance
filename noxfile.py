@@ -80,9 +80,8 @@ def export_requirements(session: nox.Session, *, extras: Iterable[str] = ()) -> 
     """Export a requirements file from Poetry.
 
     This function uses ``poetry export`` to generate a requirements file
-    containing the project dependencies at the versions specified in
-    ``poetry.lock``. The requirements file includes both core and development
-    dependencies.
+    containing the default dependencies at the versions specified in
+    ``poetry.lock``.
 
     Args:
         session: The Session object.
@@ -91,11 +90,11 @@ def export_requirements(session: nox.Session, *, extras: Iterable[str] = ()) -> 
     Returns:
         The path to the requirements file.
     """
+    # XXX Use poetry-export-plugin with dependency groups
     output = session.run_always(
         "poetry",
         "export",
         "--format=requirements.txt",
-        "--dev",
         "--without-hashes",
         *[f"--extras={extra}" for extra in extras],
         external=True,
