@@ -59,21 +59,8 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
         "--{}={}".format("only" if not root else "with", ",".join(groups)),
         external=True,
     )
-    if not root:
-        return
-
-    output = session.run_always(
-        "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
-    )
-
-    if output is None:
-        # The package build was skipped due to `--no-install`.
-        return
-
-    assert isinstance(output, str)  # noqa: S101
-
-    wheel = Path("dist") / output.split()[-1]
-    session.install(wheel.resolve().as_uri())
+    if root:
+        session.install(".")
 
 
 def export_requirements(session: nox.Session, *, extras: Iterable[str] = ()) -> Path:
