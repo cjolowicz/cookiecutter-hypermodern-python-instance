@@ -76,7 +76,7 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     session.install(wheel.resolve().as_uri())
 
 
-def export_requirements(session: nox.Session) -> Path:
+def export_requirements(session: nox.Session, *, extras: Iterable[str] = ()) -> Path:
     """Export a requirements file from Poetry.
 
     This function uses ``poetry export`` to generate a requirements file
@@ -86,6 +86,7 @@ def export_requirements(session: nox.Session) -> Path:
 
     Args:
         session: The Session object.
+        extras: Extras supported by the project.
 
     Returns:
         The path to the requirements file.
@@ -96,6 +97,7 @@ def export_requirements(session: nox.Session) -> Path:
         "--format=requirements.txt",
         "--dev",
         "--without-hashes",
+        *[f"--extras={extra}" for extra in extras],
         external=True,
         silent=True,
         stderr=None,
@@ -187,6 +189,7 @@ def precommit(session: nox.Session) -> None:
 @nox.session(python="3.10")
 def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
+    # NOTE: Pass `extras` to `export_requirements` if the project supports any.
     requirements = export_requirements(session)
     install(session, groups=["safety"], root=False)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
