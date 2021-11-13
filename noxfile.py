@@ -88,15 +88,29 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     session.install(wheel.resolve().as_uri())
 
 
-def export(session: nox.Session) -> str:
-    """Export the lock file to requirements format.
+def export_requirements(session: nox.Session) -> Path:
+    """Export a requirements file from Poetry.
+
+    This function uses `poetry export`_ to generate a :ref:`requirements
+    file <Requirements Files>` containing the project dependencies at the
+    versions specified in ``poetry.lock``. The requirements file includes
+    both core and development dependencies.
+
+    .. _poetry export: https://python-poetry.org/docs/cli/#export
 
     Returns:
-        The generated requirements as text.
+        The path to the requirements file.
 
     Raises:
         CommandSkippedError: The command `poetry export` was not executed.
     """
+    # Avoid ``session.virtualenv.location`` because PassthroughEnv does not
+    # have it. We'll just create a fake virtualenv directory in this case.
+
+    tmpdir = Path(session._runner.envdir) / "tmp"
+    tmpdir.mkdir(exist_ok=True, parents=True)
+
+    path = tmpdir / "requirements.txt"
     output = session.run_always(
         "poetry",
         "export",
@@ -123,30 +137,8 @@ def export(session: nox.Session) -> str:
                 continue
             yield line
 
-    return "".join(_stripwarnings(output.splitlines(keepends=True)))
-
-
-def export_requirements(session: nox.Session) -> Path:
-    """Export a requirements file from Poetry.
-
-    This function uses `poetry export`_ to generate a :ref:`requirements
-    file <Requirements Files>` containing the project dependencies at the
-    versions specified in ``poetry.lock``. The requirements file includes
-    both core and development dependencies.
-
-    .. _poetry export: https://python-poetry.org/docs/cli/#export
-
-    Returns:
-        The path to the requirements file.
-    """
-    # Avoid ``session.virtualenv.location`` because PassthroughEnv does not
-    # have it. We'll just create a fake virtualenv directory in this case.
-
-    tmpdir = Path(session._runner.envdir) / "tmp"  # type: ignore[attr-defined]
-    tmpdir.mkdir(exist_ok=True, parents=True)
-
-    path = tmpdir / "requirements.txt"
-    path.write_text(export(session))  # type: ignore[attr-defined]
+    text = "".join(_stripwarnings(output.splitlines(keepends=True)))
+    path.write_text(text)
 
     return path
 
