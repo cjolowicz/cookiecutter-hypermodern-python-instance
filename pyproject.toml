@@ -37,10 +37,15 @@ pyupgrade = "^2.29.0"
 reorder-python-imports = "^2.6.0"
 setuptools = "^58.5.3"
 
+[tool.poetry.group.safety]
+optional = true
+
+[tool.poetry.group.safety.dependencies]
+safety = "^1.10.3"
+
 [tool.poetry.group.dev.dependencies]
 pytest = "^6.2.5"
 coverage = {extras = ["toml"], version = "^6.1"}
-safety = "^1.10.3"
 mypy = "^0.910"
 typeguard = "^2.13.0"
 xdoctest = {extras = ["colors"], version = "^0.15.10"}
