@@ -5,7 +5,6 @@ from pathlib import Path
 from textwrap import dedent
 from typing import Iterable
 from typing import Iterator
-from typing import List
 
 import nox
 
@@ -98,17 +97,11 @@ def export(self: nox_poetry.poetry.Poetry) -> str:
     Raises:
         CommandSkippedError: The command `poetry export` was not executed.
     """
-    config = nox_poetry.poetry.Config(Path.cwd())
-    extras = self._config.get("extras", {})
-    assert isinstance(extras, dict) and all(  # noqa: S101
-        isinstance(extra, str) for extra in extras
-    )
     output = self.session.run_always(
         "poetry",
         "export",
         "--format=requirements.txt",
         "--dev",
-        *[f"--extras={extra}" for extra in extras],
         "--without-hashes",
         external=True,
         silent=True,
