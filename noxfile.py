@@ -1,5 +1,4 @@
 """Nox sessions."""
-import hashlib
 import shutil
 import sys
 from pathlib import Path
@@ -136,10 +135,6 @@ def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
     versions specified in ``poetry.lock``. The requirements file includes
     both core and development dependencies.
 
-    The requirements file is stored in a per-session temporary directory,
-    together with a hash digest over ``poetry.lock`` to avoid generating the
-    file when the dependencies have not changed since the last run.
-
     .. _poetry export: https://python-poetry.org/docs/cli/#export
 
     Returns:
@@ -152,14 +147,7 @@ def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
     tmpdir.mkdir(exist_ok=True, parents=True)
 
     path = tmpdir / "requirements.txt"
-    hashfile = tmpdir / f"{path.name}.hash"
-
-    lockdata = Path("poetry.lock").read_bytes()
-    digest = hashlib.blake2b(lockdata).hexdigest()
-
-    if not hashfile.is_file() or hashfile.read_text() != digest:
-        path.write_text(self.poetry.export())  # type: ignore[attr-defined]
-        hashfile.write_text(digest)
+    path.write_text(self.poetry.export())  # type: ignore[attr-defined]
 
     return path
 
