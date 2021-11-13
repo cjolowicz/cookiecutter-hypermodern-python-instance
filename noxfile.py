@@ -91,18 +91,16 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
 def export_requirements(session: nox.Session) -> Path:
     """Export a requirements file from Poetry.
 
-    This function uses `poetry export`_ to generate a :ref:`requirements
-    file <Requirements Files>` containing the project dependencies at the
-    versions specified in ``poetry.lock``. The requirements file includes
-    both core and development dependencies.
+    This function uses ``poetry export`` to generate a requirements file
+    containing the project dependencies at the versions specified in
+    ``poetry.lock``. The requirements file includes both core and development
+    dependencies.
 
-    .. _poetry export: https://python-poetry.org/docs/cli/#export
+    Args:
+        session: The Session object.
 
     Returns:
         The path to the requirements file.
-
-    Raises:
-        CommandSkippedError: The command `poetry export` was not executed.
     """
     output = session.run_always(
         "poetry",
