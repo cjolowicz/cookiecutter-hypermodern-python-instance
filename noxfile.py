@@ -56,6 +56,8 @@ def installroot(session: nox.Session) -> None:
 
     .. _poetry build: https://python-poetry.org/docs/cli/#export
 
+    Args:
+        session: The Session object.
     """
     output = session.run_always(
         "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
