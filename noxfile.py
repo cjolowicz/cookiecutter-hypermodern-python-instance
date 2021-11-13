@@ -8,7 +8,7 @@ from typing import Iterable
 import nox
 
 try:
-    from nox_poetry import Session
+    import nox_poetry
 except ImportError:
     message = f"""\
     Nox failed to import the 'nox-poetry' package.
@@ -50,7 +50,7 @@ def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) 
         external=True,
     )
     if not only:
-        Session(session).poetry.installroot()
+        nox_poetry.Session(session).poetry.installroot()
 
 
 def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
@@ -116,7 +116,7 @@ def precommit(session: nox.Session) -> None:
 @nox.session(python="3.10")
 def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
-    requirements = Session(session).poetry.export_requirements()
+    requirements = nox_poetry.Session(session).poetry.export_requirements()
     install(session, groups=["safety"], only=True)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
