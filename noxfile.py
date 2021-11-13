@@ -31,20 +31,8 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     also installs the root package and its default dependencies.
 
     To avoid an editable install, the root package is not installed using
-    ``poetry install``. Instead, the function uses ``poetry build`` to build a
-    wheel for the root package, and installs the wheel using ``pip install``.
-
-    The filename of the archive is extracted from the output Poetry writes
-    to standard output, which currently looks like this::
-
-        Building foobar (0.1.0)
-        - Building wheel
-        - Built foobar-0.1.0-py3-none-any.whl
-
-    This is brittle, but it has the advantage that it does not rely on
-    assumptions such as having a clean ``dist`` directory, or
-    reconstructing the filename from the package metadata. (Poetry does not
-    use PEP 440 for version numbers, so this is non-trivial.)
+    ``poetry install``. Instead, the function invokes ``pip install .``
+    to perform a PEP 517 build.
 
     Args:
         session: The Session object.
