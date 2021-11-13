@@ -5,10 +5,12 @@ import sys
 from pathlib import Path
 from textwrap import dedent
 from typing import Iterable
+from typing import Iterator
 
 import nox
 
 try:
+    import nox_poetry.poetry
     import nox_poetry.sessions
 except ImportError:
     message = f"""\
@@ -85,6 +87,45 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
 
     wheel = Path("dist") / output.split()[-1]
     session.install(wheel.resolve().as_uri())
+
+
+def export(self: nox_poetry.poetry.Poetry) -> str:
+    """Export the lock file to requirements format.
+
+    Returns:
+        The generated requirements as text.
+
+    Raises:
+        CommandSkippedError: The command `poetry export` was not executed.
+    """
+    output = self.session.run_always(
+        "poetry",
+        "export",
+        "--format=requirements.txt",
+        "--dev",
+        *[f"--extras={extra}" for extra in self.config.extras],
+        "--without-hashes",
+        external=True,
+        silent=True,
+        stderr=None,
+    )
+
+    if output is None:
+        raise nox_poetry.poetry.CommandSkippedError(
+            "The command `poetry export` was not executed"
+            " (a possible cause is specifying `--no-install`)"
+        )
+
+    assert isinstance(output, str)  # noqa: S101
+
+    def _stripwarnings(lines: Iterable[str]) -> Iterator[str]:
+        for line in lines:
+            if line.startswith("Warning:"):
+                print(line, file=sys.stderr)
+                continue
+            yield line
+
+    return "".join(_stripwarnings(output.splitlines(keepends=True)))
 
 
 def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
