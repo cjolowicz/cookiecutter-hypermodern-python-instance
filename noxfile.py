@@ -124,12 +124,12 @@ def tests(session: Session) -> None:
             session.notify("coverage", posargs=[])
 
 
-@session
-def coverage(session: Session) -> None:
+@nox.session
+def coverage(session: nox.Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report"]
 
-    session.install("coverage[toml]")
+    session.run("poetry", "install", "--only", "coverage", "--sync", external=True)
 
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
