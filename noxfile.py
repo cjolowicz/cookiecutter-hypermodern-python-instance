@@ -57,27 +57,21 @@ def installroot(session: nox.Session) -> None:
     .. _poetry build: https://python-poetry.org/docs/cli/#export
 
     """
-    try:
-        output = session.run_always(
-            "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
-        )
+    output = session.run_always(
+        "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
+    )
 
-        if output is None:
-            raise nox_poetry.poetry.CommandSkippedError(
-                "The command `poetry build` was not executed"
-                " (a possible cause is specifying `--no-install`)"
-            )
+    if output is None:
+        return
 
-        assert isinstance(output, str)  # noqa: S101
+    assert isinstance(output, str)  # noqa: S101
 
-        wheel = Path("dist") / output.split()[-1]
-        url: str = wheel.resolve().as_uri()
+    wheel = Path("dist") / output.split()[-1]
+    url: str = wheel.resolve().as_uri()
 
-        package = url
-    except nox_poetry.poetry.CommandSkippedError:
-        pass
-    else:
-        session.install(package)
+    package = url
+
+    session.install(package)
 
 
 def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) -> None:
