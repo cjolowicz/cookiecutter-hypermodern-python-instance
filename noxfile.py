@@ -23,7 +23,7 @@ except ImportError:
 
 package = "cookiecutter_hypermodern_python_instance"
 python_versions = ["3.10", "3.9", "3.8", "3.7"]
-nox.needs_version = ">= 2021.6.6"
+nox.needs_version = ">= 2021.10.1"
 nox.options.sessions = (
     "pre-commit",
     "safety",
@@ -104,13 +104,7 @@ def export_requirements(session: nox.Session) -> Path:
     Raises:
         CommandSkippedError: The command `poetry export` was not executed.
     """
-    # Avoid ``session.virtualenv.location`` because PassthroughEnv does not
-    # have it. We'll just create a fake virtualenv directory in this case.
-
-    tmpdir = Path(session._runner.envdir) / "tmp"
-    tmpdir.mkdir(exist_ok=True, parents=True)
-
-    path = tmpdir / "requirements.txt"
+    path = session.cache_dir / "requirements.txt"
     output = session.run_always(
         "poetry",
         "export",
