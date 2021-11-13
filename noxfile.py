@@ -88,7 +88,7 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     session.install(wheel.resolve().as_uri())
 
 
-def export(self: nox_poetry.poetry.Poetry) -> str:
+def export(session: nox.Session) -> str:
     """Export the lock file to requirements format.
 
     Returns:
@@ -97,7 +97,7 @@ def export(self: nox_poetry.poetry.Poetry) -> str:
     Raises:
         CommandSkippedError: The command `poetry export` was not executed.
     """
-    output = self.session.run_always(
+    output = session.run_always(
         "poetry",
         "export",
         "--format=requirements.txt",
@@ -126,7 +126,7 @@ def export(self: nox_poetry.poetry.Poetry) -> str:
     return "".join(_stripwarnings(output.splitlines(keepends=True)))
 
 
-def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
+def export_requirements(session: nox.Session) -> Path:
     """Export a requirements file from Poetry.
 
     This function uses `poetry export`_ to generate a :ref:`requirements
@@ -142,11 +142,11 @@ def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
     # Avoid ``session.virtualenv.location`` because PassthroughEnv does not
     # have it. We'll just create a fake virtualenv directory in this case.
 
-    tmpdir = Path(self.session._runner.envdir) / "tmp"  # type: ignore[attr-defined]
+    tmpdir = Path(session._runner.envdir) / "tmp"  # type: ignore[attr-defined]
     tmpdir.mkdir(exist_ok=True, parents=True)
 
     path = tmpdir / "requirements.txt"
-    path.write_text(self.poetry.export())  # type: ignore[attr-defined]
+    path.write_text(export(session))  # type: ignore[attr-defined]
 
     return path
 
@@ -214,7 +214,7 @@ def precommit(session: nox.Session) -> None:
 @nox.session(python="3.10")
 def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
-    requirements = export_requirements(nox_poetry.Session(session).poetry)
+    requirements = export_requirements(session)
     install(session, groups=["safety"], root=False)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
