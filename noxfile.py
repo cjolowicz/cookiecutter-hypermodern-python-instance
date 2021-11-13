@@ -67,11 +67,7 @@ def installroot(session: nox.Session) -> None:
     assert isinstance(output, str)  # noqa: S101
 
     wheel = Path("dist") / output.split()[-1]
-    url: str = wheel.resolve().as_uri()
-
-    package = url
-
-    session.install(package)
+    session.install(wheel.resolve().as_uri())
 
 
 def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) -> None:
