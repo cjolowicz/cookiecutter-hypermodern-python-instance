@@ -46,9 +46,9 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     try:
         package = self.build_package()
     except CommandSkippedError:
-        return
-
-    Session_install(self.session, package)  # type: ignore[attr-defined]
+        pass
+    else:
+        Session_install(self.session, package)  # type: ignore[attr-defined]
 
 
 def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) -> None:
