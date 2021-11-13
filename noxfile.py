@@ -33,13 +33,13 @@ nox.options.sessions = (
 )
 
 
-def installroot(session: nox.Session) -> None:
-    """Install the root package into a Nox session using Poetry.
+def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -> None:
+    """Install the dependency groups using Poetry.
 
-    This function installs the package located in the current directory into the
-    session's virtual environment. The function uses `poetry build`_ to build a
-    wheel for the local package. It returns a file URL with the absolute path to
-    the built archive.
+    With ``root=True``, the function installs the package located in the current
+    directory into the session's virtual environment. The function uses `poetry
+    build`_ to build a wheel for the local package. It returns a file URL with
+    the absolute path to the built archive.
 
     The filename of the archive is extracted from the output Poetry writes
     to standard output, which currently looks like this::
@@ -57,26 +57,6 @@ def installroot(session: nox.Session) -> None:
 
     Args:
         session: The Session object.
-    """
-    output = session.run_always(
-        "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
-    )
-
-    if output is None:
-        # The package build was skipped due to `--no-install`.
-        return
-
-    assert isinstance(output, str)  # noqa: S101
-
-    wheel = Path("dist") / output.split()[-1]
-    session.install(wheel.resolve().as_uri())
-
-
-def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -> None:
-    """Install the dependency groups using Poetry.
-
-    Args:
-        session: The Session object.
         groups: The dependency groups to install.
         root: Install the root package.
     """
@@ -91,7 +71,18 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     if not root:
         return
 
-    installroot(session)
+    output = session.run_always(
+        "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
+    )
+
+    if output is None:
+        # The package build was skipped due to `--no-install`.
+        return
+
+    assert isinstance(output, str)  # noqa: S101
+
+    wheel = Path("dist") / output.split()[-1]
+    session.install(wheel.resolve().as_uri())
 
 
 def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
