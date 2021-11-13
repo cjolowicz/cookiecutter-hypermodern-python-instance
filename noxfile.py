@@ -39,19 +39,12 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
 
     This function installs the package located in the current directory into the
     session's virtual environment.
-
-    A :ref:`constraints file <Constraints Files>` is generated for the
-    package dependencies using :meth:`export_requirements`, and passed to
-    :ref:`pip install` via its ``--constraint`` option. This ensures that
-    core dependencies are installed using the versions specified in Poetry's
-    lock file.
     """
     from nox_poetry.core import Session_install
     from nox_poetry.poetry import CommandSkippedError
 
     try:
         package = self.build_package()
-        requirements = self.export_requirements()
     except CommandSkippedError:
         return
 
@@ -59,7 +52,7 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
         "pip", "uninstall", "--yes", package, silent=True
     )
 
-    Session_install(self.session, f"--constraint={requirements}", package)  # type: ignore[attr-defined]
+    Session_install(self.session, package)  # type: ignore[attr-defined]
 
 
 def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) -> None:
