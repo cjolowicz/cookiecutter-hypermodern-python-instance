@@ -62,8 +62,13 @@ optional = true
 [tool.poetry.group.mypy.dependencies]
 mypy = "^0.910"
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.group.typeguard]
+optional = true
+
+[tool.poetry.group.typeguard.dependencies]
 typeguard = "^2.13.0"
+
+[tool.poetry.group.dev.dependencies]
 xdoctest = {extras = ["colors"], version = "^0.15.10"}
 sphinx = "^4.3.0"
 sphinx-autobuild = ">=2021.3.14"
