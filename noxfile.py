@@ -93,11 +93,11 @@ def precommit(session: nox.Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@session(python="3.10")
-def safety(session: Session) -> None:
+@nox.session(python="3.10")
+def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
-    requirements = session.poetry.export_requirements()
-    session.install("safety")
+    requirements = Session(session).poetry.export_requirements()
+    session.run("poetry", "install", "--only", "safety", "--sync", external=True)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
 
