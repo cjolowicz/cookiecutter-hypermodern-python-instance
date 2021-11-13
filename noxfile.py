@@ -104,7 +104,6 @@ def export_requirements(session: nox.Session) -> Path:
     Raises:
         CommandSkippedError: The command `poetry export` was not executed.
     """
-    path = session.cache_dir / "requirements.txt"
     output = session.run_always(
         "poetry",
         "export",
@@ -132,6 +131,8 @@ def export_requirements(session: nox.Session) -> Path:
             yield line
 
     text = "".join(_stripwarnings(output.splitlines(keepends=True)))
+
+    path = session.cache_dir / "requirements.txt"
     path.write_text(text)
 
     return path
