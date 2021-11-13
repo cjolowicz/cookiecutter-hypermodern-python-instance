@@ -48,10 +48,6 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     except CommandSkippedError:
         return
 
-    self.session.run_always(  # type: ignore[attr-defined]
-        "pip", "uninstall", "--yes", package, silent=True
-    )
-
     Session_install(self.session, package)  # type: ignore[attr-defined]
 
 
