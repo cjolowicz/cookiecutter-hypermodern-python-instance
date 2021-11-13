@@ -86,7 +86,7 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     session's virtual environment.
     """
     try:
-        package = build_package(self.poetry.session)  # type: ignore[attr-defined]
+        package = build_package(self.session)  # type: ignore[attr-defined]
     except nox_poetry.poetry.CommandSkippedError:
         pass
     else:
