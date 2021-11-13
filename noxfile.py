@@ -1,4 +1,5 @@
 """Nox sessions."""
+import hashlib
 import shutil
 import sys
 from pathlib import Path
@@ -8,7 +9,8 @@ from typing import Iterable
 import nox
 
 try:
-    import nox_poetry
+    import nox_poetry.poetry
+    import nox_poetry.sessions
 except ImportError:
     message = f"""\
     Nox failed to import the 'nox-poetry' package.
@@ -86,6 +88,43 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     session.install(wheel.resolve().as_uri())
 
 
+def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
+    """Export a requirements file from Poetry.
+
+    This function uses `poetry export`_ to generate a :ref:`requirements
+    file <Requirements Files>` containing the project dependencies at the
+    versions specified in ``poetry.lock``. The requirements file includes
+    both core and development dependencies.
+
+    The requirements file is stored in a per-session temporary directory,
+    together with a hash digest over ``poetry.lock`` to avoid generating the
+    file when the dependencies have not changed since the last run.
+
+    .. _poetry export: https://python-poetry.org/docs/cli/#export
+
+    Returns:
+        The path to the requirements file.
+    """
+    # Avoid ``session.virtualenv.location`` because PassthroughEnv does not
+    # have it. We'll just create a fake virtualenv directory in this case.
+
+    tmpdir = Path(self.session._runner.envdir) / "tmp"
+    tmpdir.mkdir(exist_ok=True, parents=True)
+
+    path = tmpdir / "requirements.txt"
+    hashfile = tmpdir / f"{path.name}.hash"
+
+    lockdata = Path("poetry.lock").read_bytes()
+    digest = hashlib.blake2b(lockdata).hexdigest()
+
+    if not hashfile.is_file() or hashfile.read_text() != digest:
+        constraints = nox_poetry.sessions.to_constraints(self.poetry.export())
+        path.write_text(constraints)
+        hashfile.write_text(digest)
+
+    return path
+
+
 def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
     """Activate virtualenv in hooks installed by pre-commit.
 
@@ -149,7 +188,7 @@ def precommit(session: nox.Session) -> None:
 @nox.session(python="3.10")
 def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
-    requirements = nox_poetry.Session(session).poetry.export_requirements()
+    requirements = export_requirements(nox_poetry.Session(session).poetry)
     install(session, groups=["safety"], root=False)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
