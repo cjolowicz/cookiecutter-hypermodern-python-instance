@@ -9,7 +9,6 @@ from typing import Iterable
 import nox
 
 try:
-    import nox_poetry.poetry
     import nox_poetry.sessions
 except ImportError:
     message = f"""\
@@ -118,8 +117,7 @@ def export_requirements(self: nox_poetry.sessions._PoetrySession) -> Path:
     digest = hashlib.blake2b(lockdata).hexdigest()
 
     if not hashfile.is_file() or hashfile.read_text() != digest:
-        constraints = nox_poetry.sessions.to_constraints(self.poetry.export())
-        path.write_text(constraints)
+        path.write_text(self.poetry.export())
         hashfile.write_text(digest)
 
     return path
