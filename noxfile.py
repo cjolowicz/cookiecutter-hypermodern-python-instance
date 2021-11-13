@@ -34,12 +34,7 @@ nox.options.sessions = (
 )
 
 
-def installroot(
-    self: nox_poetry.sessions._PoetrySession,
-    *,
-    distribution_format: str = nox_poetry.poetry.DistributionFormat.WHEEL,
-    extras: Iterable[str] = (),
-) -> None:
+def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     """Install the root package into a Nox session using Poetry.
 
     This function installs the package located in the current directory into the
@@ -50,13 +45,12 @@ def installroot(
     :ref:`pip install` via its ``--constraint`` option. This ensures that
     core dependencies are installed using the versions specified in Poetry's
     lock file.
-
-    Args:
-        distribution_format: The distribution format, either wheel or sdist.
-        extras: Extras to install for the package.
     """
     from nox_poetry.core import Session_install
     from nox_poetry.poetry import CommandSkippedError
+
+    distribution_format = nox_poetry.poetry.DistributionFormat.WHEEL
+    extras = ()
 
     try:
         package = self.build_package(distribution_format=distribution_format)
