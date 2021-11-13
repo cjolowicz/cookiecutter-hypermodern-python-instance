@@ -34,7 +34,7 @@ nox.options.sessions = (
 )
 
 
-def build(self: nox_poetry.poetry.Poetry, *, format: str) -> str:
+def build(self: nox_poetry.poetry.Poetry) -> str:
     """Build the package.
 
     The filename of the archive is extracted from the output Poetry writes
@@ -49,22 +49,16 @@ def build(self: nox_poetry.poetry.Poetry, *, format: str) -> str:
     reconstructing the filename from the package metadata. (Poetry does not
     use PEP 440 for version numbers, so this is non-trivial.)
 
-    Args:
-        format: The distribution format, either wheel or sdist.
-
     Returns:
         The basename of the wheel built by Poetry.
 
     Raises:
         CommandSkippedError: The command `poetry build` was not executed.
     """
-    if not isinstance(format, nox_poetry.poetry.DistributionFormat):
-        format = nox_poetry.poetry.DistributionFormat(format)
-
     output = self.session.run_always(
         "poetry",
         "build",
-        f"--format={format}",
+        "--format=wheel",
         external=True,
         silent=True,
         stderr=None,
@@ -95,7 +89,7 @@ def build_package(self: nox_poetry.sessions._PoetrySession) -> str:
     Returns:
         The file URL for the distribution package.
     """
-    wheel = Path("dist") / build(self.poetry, format="wheel")  # type: ignore[attr-defined]
+    wheel = Path("dist") / build(self.poetry)  # type: ignore[attr-defined]
     url: str = wheel.resolve().as_uri()
 
     return url
