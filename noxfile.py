@@ -40,11 +40,9 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     This function installs the package located in the current directory into the
     session's virtual environment.
     """
-    from nox_poetry.poetry import CommandSkippedError
-
     try:
         package = self.build_package()
-    except CommandSkippedError:
+    except nox_poetry.poetry.CommandSkippedError:
         pass
     else:
         self.session.install(package)  # type: ignore[attr-defined]
