@@ -34,6 +34,39 @@ nox.options.sessions = (
 )
 
 
+def build_package(
+    self: nox_poetry.sessions._PoetrySession,
+    *,
+    distribution_format: str = nox_poetry.poetry.DistributionFormat.WHEEL,
+) -> str:
+    """Build a distribution archive for the package.
+
+    This function uses `poetry build`_ to build a wheel or sdist archive for
+    the local package, as specified via the ``distribution_format`` parameter.
+    It returns a file URL with the absolute path to the built archive.
+
+    .. _poetry build: https://python-poetry.org/docs/cli/#export
+
+    Args:
+        distribution_format: The distribution format, either wheel or sdist.
+
+    Returns:
+        The file URL for the distribution package.
+    """
+    wheel = Path("dist") / self.poetry.build(  # type: ignore[attr-defined]
+        format=distribution_format
+    )
+    url: str = wheel.resolve().as_uri()
+
+    if (
+        nox_poetry.poetry.DistributionFormat(distribution_format)
+        is nox_poetry.poetry.DistributionFormat.SDIST
+    ):
+        url += f"#egg={self.poetry.config.name}"  # type: ignore[attr-defined]
+
+    return url
+
+
 def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     """Install the root package into a Nox session using Poetry.
 
@@ -41,7 +74,7 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     session's virtual environment.
     """
     try:
-        package = self.build_package()
+        package = build_package(self)
     except nox_poetry.poetry.CommandSkippedError:
         pass
     else:
