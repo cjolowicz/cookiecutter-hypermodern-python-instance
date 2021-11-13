@@ -19,7 +19,7 @@ Changelog = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instan
 python = "^3.7"
 click = "^8.0.1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^6.2.5"
 coverage = {extras = ["toml"], version = "^6.1"}
 safety = "^1.10.3"
