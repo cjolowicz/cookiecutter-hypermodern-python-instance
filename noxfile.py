@@ -64,6 +64,7 @@ def installroot(session: nox.Session) -> None:
     )
 
     if output is None:
+        # The package build was skipped due to `--no-install`.
         return
 
     assert isinstance(output, str)  # noqa: S101
