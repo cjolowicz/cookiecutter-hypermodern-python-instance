@@ -49,9 +49,7 @@ def build_package(self: nox_poetry.sessions._PoetrySession) -> str:
     Returns:
         The file URL for the distribution package.
     """
-    wheel = Path("dist") / self.poetry.build(  # type: ignore[attr-defined]
-        format=nox_poetry.poetry.DistributionFormat.WHEEL
-    )
+    wheel = Path("dist") / self.poetry.build(format="wheel")  # type: ignore[attr-defined]
     url: str = wheel.resolve().as_uri()
 
     return url
