@@ -88,8 +88,10 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
         "--{}={}".format("only" if not root else "with", ",".join(groups)),
         external=True,
     )
-    if root:
-        installroot(session)
+    if not root:
+        return
+
+    installroot(session)
 
 
 def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
