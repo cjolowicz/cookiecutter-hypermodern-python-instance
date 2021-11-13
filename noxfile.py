@@ -34,12 +34,13 @@ nox.options.sessions = (
 )
 
 
-def build_package(session: nox.Session) -> str:
-    """Build a distribution archive for the package.
+def installroot(session: nox.Session) -> None:
+    """Install the root package into a Nox session using Poetry.
 
-    This function uses `poetry build`_ to build a wheel for the local package,
-    as specified via the ``distribution_format`` parameter. It returns a file
-    URL with the absolute path to the built archive.
+    This function installs the package located in the current directory into the
+    session's virtual environment. The function uses `poetry build`_ to build a
+    wheel for the local package. It returns a file URL with the absolute path to
+    the built archive.
 
     The filename of the archive is extracted from the output Poetry writes
     to standard output, which currently looks like this::
@@ -55,38 +56,24 @@ def build_package(session: nox.Session) -> str:
 
     .. _poetry build: https://python-poetry.org/docs/cli/#export
 
-    Returns:
-        The file URL for the distribution package.
-
-    Raises:
-        CommandSkippedError: The command `poetry build` was not executed.
-    """
-    output = session.run_always(
-        "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
-    )
-
-    if output is None:
-        raise nox_poetry.poetry.CommandSkippedError(
-            "The command `poetry build` was not executed"
-            " (a possible cause is specifying `--no-install`)"
-        )
-
-    assert isinstance(output, str)  # noqa: S101
-
-    wheel = Path("dist") / output.split()[-1]
-    url: str = wheel.resolve().as_uri()
-
-    return url
-
-
-def installroot(session: nox.Session) -> None:
-    """Install the root package into a Nox session using Poetry.
-
-    This function installs the package located in the current directory into the
-    session's virtual environment.
     """
     try:
-        package = build_package(session)
+        output = session.run_always(
+            "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
+        )
+
+        if output is None:
+            raise nox_poetry.poetry.CommandSkippedError(
+                "The command `poetry build` was not executed"
+                " (a possible cause is specifying `--no-install`)"
+            )
+
+        assert isinstance(output, str)  # noqa: S101
+
+        wheel = Path("dist") / output.split()[-1]
+        url: str = wheel.resolve().as_uri()
+
+        package = url
     except nox_poetry.poetry.CommandSkippedError:
         pass
     else:
