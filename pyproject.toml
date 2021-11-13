@@ -68,8 +68,13 @@ optional = true
 [tool.poetry.group.typeguard.dependencies]
 typeguard = "^2.13.0"
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.group.xdoctest]
+optional = true
+
+[tool.poetry.group.xdoctest.dependencies]
 xdoctest = {extras = ["colors"], version = "^0.15.10"}
+
+[tool.poetry.group.dev.dependencies]
 sphinx = "^4.3.0"
 sphinx-autobuild = ">=2021.3.14"
 sphinx-click = "^3.0.2"
