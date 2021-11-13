@@ -89,15 +89,6 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     session.install(wheel.resolve().as_uri())
 
 
-def extras(self: nox_poetry.poetry.Config) -> List[str]:
-    """Return the package extras."""
-    extras = self._config.get("extras", {})
-    assert isinstance(extras, dict) and all(  # noqa: S101
-        isinstance(extra, str) for extra in extras
-    )
-    return list(extras)
-
-
 def export(self: nox_poetry.poetry.Poetry) -> str:
     """Export the lock file to requirements format.
 
@@ -108,12 +99,17 @@ def export(self: nox_poetry.poetry.Poetry) -> str:
         CommandSkippedError: The command `poetry export` was not executed.
     """
     config = nox_poetry.poetry.Config(Path.cwd())
+    _extras = self._config.get("extras", {})
+    assert isinstance(_extras, dict) and all(  # noqa: S101
+        isinstance(extra, str) for extra in _extras
+    )
+    extras = list(_extras)
     output = self.session.run_always(
         "poetry",
         "export",
         "--format=requirements.txt",
         "--dev",
-        *[f"--extras={extra}" for extra in extras(config)],
+        *[f"--extras={extra}" for extra in extras],
         "--without-hashes",
         external=True,
         silent=True,
