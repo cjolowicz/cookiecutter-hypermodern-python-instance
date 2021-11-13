@@ -8,7 +8,8 @@ from typing import Iterable
 import nox
 
 try:
-    import nox_poetry
+    import nox_poetry.sessions
+    import nox_poetry.poetry
 except ImportError:
     message = f"""\
     Nox failed to import the 'nox-poetry' package.
@@ -33,6 +34,49 @@ nox.options.sessions = (
 )
 
 
+def installroot(
+    self: nox_poetry.sessions._PoetrySession,
+    *,
+    distribution_format: str = nox_poetry.poetry.DistributionFormat.WHEEL,
+    extras: Iterable[str] = (),
+) -> None:
+    """Install the root package into a Nox session using Poetry.
+
+    This function installs the package located in the current directory into the
+    session's virtual environment.
+
+    A :ref:`constraints file <Constraints Files>` is generated for the
+    package dependencies using :meth:`export_requirements`, and passed to
+    :ref:`pip install` via its ``--constraint`` option. This ensures that
+    core dependencies are installed using the versions specified in Poetry's
+    lock file.
+
+    Args:
+        distribution_format: The distribution format, either wheel or sdist.
+        extras: Extras to install for the package.
+    """
+    from nox_poetry.core import Session_install
+    from nox_poetry.poetry import CommandSkippedError
+
+    try:
+        package = self.build_package(distribution_format=distribution_format)
+        requirements = self.export_requirements()
+    except CommandSkippedError:
+        return
+
+    self.session.run_always(  # type: ignore[attr-defined]
+        "pip", "uninstall", "--yes", package, silent=True
+    )
+
+    suffix = ",".join(extras)
+    if suffix.strip():
+        suffix = suffix.join("[]")
+        name = self.poetry.config.name  # type: ignore[attr-defined]
+        package = f"{name}{suffix} @ {package}"
+
+    Session_install(self.session, f"--constraint={requirements}", package)  # type: ignore[attr-defined]
+
+
 def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) -> None:
     """Install the dependency groups using Poetry.
 
@@ -50,7 +94,7 @@ def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) 
         external=True,
     )
     if not only:
-        nox_poetry.Session(session).poetry.installroot()
+        installroot(nox_poetry.Session(session).poetry)
 
 
 def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
