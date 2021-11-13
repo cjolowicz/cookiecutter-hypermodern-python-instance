@@ -34,16 +34,12 @@ nox.options.sessions = (
 )
 
 
-def build_package(
-    self: nox_poetry.sessions._PoetrySession,
-    *,
-    distribution_format: str = nox_poetry.poetry.DistributionFormat.WHEEL,
-) -> str:
+def build_package(self: nox_poetry.sessions._PoetrySession) -> str:
     """Build a distribution archive for the package.
 
-    This function uses `poetry build`_ to build a wheel or sdist archive for
-    the local package, as specified via the ``distribution_format`` parameter.
-    It returns a file URL with the absolute path to the built archive.
+    This function uses `poetry build`_ to build a wheel for the local package,
+    as specified via the ``distribution_format`` parameter. It returns a file
+    URL with the absolute path to the built archive.
 
     .. _poetry build: https://python-poetry.org/docs/cli/#export
 
@@ -54,15 +50,9 @@ def build_package(
         The file URL for the distribution package.
     """
     wheel = Path("dist") / self.poetry.build(  # type: ignore[attr-defined]
-        format=distribution_format
+        format=nox_poetry.poetry.DistributionFormat.WHEEL
     )
     url: str = wheel.resolve().as_uri()
-
-    if (
-        nox_poetry.poetry.DistributionFormat(distribution_format)
-        is nox_poetry.poetry.DistributionFormat.SDIST
-    ):
-        url += f"#egg={self.poetry.config.name}"  # type: ignore[attr-defined]
 
     return url
 
