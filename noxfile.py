@@ -8,8 +8,7 @@ from typing import Iterable
 import nox
 
 try:
-    import nox_poetry.sessions
-    import nox_poetry.poetry
+    import nox_poetry
 except ImportError:
     message = f"""\
     Nox failed to import the 'nox-poetry' package.
