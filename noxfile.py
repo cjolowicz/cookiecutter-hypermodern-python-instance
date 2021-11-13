@@ -87,7 +87,9 @@ def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
 def precommit(session: nox.Session) -> None:
     """Lint using pre-commit."""
     args = session.posargs or ["run", "--all-files", "--show-diff-on-failure"]
-    session.run("poetry", "install", "--only", "pre-commit", "--sync", external=True)
+    session.run_always(
+        "poetry", "install", "--only", "pre-commit", "--sync", external=True
+    )
     session.run("pre-commit", *args)
     if args and args[0] == "install":
         activate_virtualenv_in_precommit_hooks(session)
@@ -97,7 +99,7 @@ def precommit(session: nox.Session) -> None:
 def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
     requirements = Session(session).poetry.export_requirements()
-    session.run("poetry", "install", "--only", "safety", "--sync", external=True)
+    session.run_always("poetry", "install", "--only", "safety", "--sync", external=True)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
 
@@ -145,7 +147,9 @@ def coverage(session: nox.Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report"]
 
-    session.run("poetry", "install", "--only", "coverage", "--sync", external=True)
+    session.run_always(
+        "poetry", "install", "--only", "coverage", "--sync", external=True
+    )
 
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
