@@ -3,6 +3,7 @@ import shutil
 import sys
 from pathlib import Path
 from textwrap import dedent
+from typing import Iterable
 
 import nox
 
@@ -30,6 +31,26 @@ nox.options.sessions = (
     "xdoctest",
     "docs-build",
 )
+
+
+def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) -> None:
+    """Install the dependency groups using Poetry.
+
+    Args:
+        session: The Session object.
+        groups: The dependency groups to install.
+        only: Do not install the default dependencies.
+    """
+    session.run_always(
+        "poetry",
+        "install",
+        "--no-root",
+        "--sync",
+        "--{}={}".format("only" if only else "with", ",".join(groups)),
+        external=True,
+    )
+    if not only:
+        Session(session).poetry.installroot()
 
 
 def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
@@ -86,9 +107,7 @@ def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
 def precommit(session: nox.Session) -> None:
     """Lint using pre-commit."""
     args = session.posargs or ["run", "--all-files", "--show-diff-on-failure"]
-    session.run_always(
-        "poetry", "install", "--only", "pre-commit", "--sync", external=True
-    )
+    install(session, groups=["pre-commit"], only=True)
     session.run("pre-commit", *args)
     if args and args[0] == "install":
         activate_virtualenv_in_precommit_hooks(session)
@@ -98,7 +117,7 @@ def precommit(session: nox.Session) -> None:
 def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
     requirements = Session(session).poetry.export_requirements()
-    session.run_always("poetry", "install", "--only", "safety", "--sync", external=True)
+    install(session, groups=["safety"], only=True)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
 
@@ -106,16 +125,7 @@ def safety(session: nox.Session) -> None:
 def mypy(session: nox.Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or ["src", "tests", "docs/conf.py"]
-    session.run(
-        "poetry",
-        "install",
-        "--with",
-        "mypy",
-        "--with",
-        "tests",
-        "--sync",
-        external=True,
-    )
+    install(session, groups=["mypy", "tests"])
     session.run("mypy", *args)
     if not session.posargs:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
@@ -124,16 +134,7 @@ def mypy(session: nox.Session) -> None:
 @nox.session(python=python_versions)
 def tests(session: nox.Session) -> None:
     """Run the test suite."""
-    session.run(
-        "poetry",
-        "install",
-        "--with",
-        "coverage",
-        "--with",
-        "tests",
-        "--sync",
-        external=True,
-    )
+    install(session, groups=["coverage", "tests"])
     try:
         session.run("coverage", "run", "--parallel", "-m", "pytest", *session.posargs)
     finally:
@@ -146,9 +147,7 @@ def coverage(session: nox.Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report"]
 
-    session.run_always(
-        "poetry", "install", "--only", "coverage", "--sync", external=True
-    )
+    install(session, groups=["coverage"], only=True)
 
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
@@ -159,16 +158,7 @@ def coverage(session: nox.Session) -> None:
 @nox.session(python=python_versions)
 def typeguard(session: nox.Session) -> None:
     """Runtime type checking using Typeguard."""
-    session.run(
-        "poetry",
-        "install",
-        "--with",
-        "typeguard",
-        "--with",
-        "tests",
-        "--sync",
-        external=True,
-    )
+    install(session, groups=["typeguard", "tests"])
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
@@ -176,14 +166,7 @@ def typeguard(session: nox.Session) -> None:
 def xdoctest(session: nox.Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
-    session.run(
-        "poetry",
-        "install",
-        "--with",
-        "xdoctest",
-        "--sync",
-        external=True,
-    )
+    install(session, groups=["xdoctest"])
     session.run("python", "-m", "xdoctest", package, *args)
 
 
@@ -191,14 +174,7 @@ def xdoctest(session: nox.Session) -> None:
 def docs_build(session: nox.Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
-    session.run(
-        "poetry",
-        "install",
-        "--with",
-        "docs",
-        "--sync",
-        external=True,
-    )
+    install(session, groups=["docs"])
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
@@ -211,14 +187,7 @@ def docs_build(session: nox.Session) -> None:
 def docs(session: nox.Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
-    session.run(
-        "poetry",
-        "install",
-        "--with",
-        "docs",
-        "--sync",
-        external=True,
-    )
+    install(session, groups=["docs"])
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
