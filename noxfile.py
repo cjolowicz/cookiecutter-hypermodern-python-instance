@@ -79,18 +79,18 @@ def build_package(session: nox.Session) -> str:
     return url
 
 
-def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
+def installroot(session: nox.Session) -> None:
     """Install the root package into a Nox session using Poetry.
 
     This function installs the package located in the current directory into the
     session's virtual environment.
     """
     try:
-        package = build_package(self.session)  # type: ignore[attr-defined]
+        package = build_package(session)
     except nox_poetry.poetry.CommandSkippedError:
         pass
     else:
-        self.session.install(package)  # type: ignore[attr-defined]
+        session.install(package)
 
 
 def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) -> None:
@@ -110,7 +110,7 @@ def install(session: nox.Session, *, groups: Iterable[str], only: bool = False) 
         external=True,
     )
     if not only:
-        installroot(nox_poetry.Session(session).poetry)
+        installroot(session)
 
 
 def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
