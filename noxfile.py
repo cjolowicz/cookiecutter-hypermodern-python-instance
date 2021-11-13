@@ -36,10 +36,13 @@ nox.options.sessions = (
 def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -> None:
     """Install the dependency groups using Poetry.
 
-    With ``root=True``, the function installs the package located in the current
-    directory into the session's virtual environment. The function uses `poetry
-    build`_ to build a wheel for the local package. It returns a file URL with
-    the absolute path to the built archive.
+    This function installs the given dependency groups into the session's
+    virtual environment. When ``root`` is true (the default), the function
+    also installs the root package and its default dependencies.
+
+    To avoid an editable install, the root package is not installed using
+    ``poetry install``. Instead, the function uses ``poetry build`` to build a
+    wheel for the root package, and installs the wheel using ``pip install``.
 
     The filename of the archive is extracted from the output Poetry writes
     to standard output, which currently looks like this::
@@ -52,8 +55,6 @@ def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -
     assumptions such as having a clean ``dist`` directory, or
     reconstructing the filename from the package metadata. (Poetry does not
     use PEP 440 for version numbers, so this is non-trivial.)
-
-    .. _poetry build: https://python-poetry.org/docs/cli/#export
 
     Args:
         session: The Session object.
