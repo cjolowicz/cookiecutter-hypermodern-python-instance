@@ -49,10 +49,8 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     from nox_poetry.core import Session_install
     from nox_poetry.poetry import CommandSkippedError
 
-    distribution_format = nox_poetry.poetry.DistributionFormat.WHEEL
-
     try:
-        package = self.build_package(distribution_format=distribution_format)
+        package = self.build_package()
         requirements = self.export_requirements()
     except CommandSkippedError:
         return
