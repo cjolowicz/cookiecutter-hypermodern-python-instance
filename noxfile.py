@@ -50,7 +50,6 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     from nox_poetry.poetry import CommandSkippedError
 
     distribution_format = nox_poetry.poetry.DistributionFormat.WHEEL
-    extras = ()
 
     try:
         package = self.build_package(distribution_format=distribution_format)
@@ -61,12 +60,6 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     self.session.run_always(  # type: ignore[attr-defined]
         "pip", "uninstall", "--yes", package, silent=True
     )
-
-    suffix = ",".join(extras)
-    if suffix.strip():
-        suffix = suffix.join("[]")
-        name = self.poetry.config.name  # type: ignore[attr-defined]
-        package = f"{name}{suffix} @ {package}"
 
     Session_install(self.session, f"--constraint={requirements}", package)  # type: ignore[attr-defined]
 
