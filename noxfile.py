@@ -34,7 +34,7 @@ nox.options.sessions = (
 )
 
 
-def build_package(self: nox_poetry.sessions._PoetrySession) -> str:
+def build_package(session: nox.Session) -> str:
     """Build a distribution archive for the package.
 
     This function uses `poetry build`_ to build a wheel for the local package,
@@ -61,13 +61,8 @@ def build_package(self: nox_poetry.sessions._PoetrySession) -> str:
     Raises:
         CommandSkippedError: The command `poetry build` was not executed.
     """
-    output = self.poetry.session.run_always(  # type: ignore[attr-defined]
-        "poetry",
-        "build",
-        "--format=wheel",
-        external=True,
-        silent=True,
-        stderr=None,
+    output = session.run_always(
+        "poetry", "build", "--format=wheel", external=True, silent=True, stderr=None
     )
 
     if output is None:
@@ -91,7 +86,7 @@ def installroot(self: nox_poetry.sessions._PoetrySession) -> None:
     session's virtual environment.
     """
     try:
-        package = build_package(self)
+        package = build_package(self.poetry.session)  # type: ignore[attr-defined]
     except nox_poetry.poetry.CommandSkippedError:
         pass
     else:
