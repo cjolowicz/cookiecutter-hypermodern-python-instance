@@ -123,7 +123,7 @@ def export_requirements(session: nox.Session) -> Path:
     )
 
     if output is None:
-        raise nox_poetry.poetry.CommandSkippedError(
+        session.skip(
             "The command `poetry export` was not executed"
             " (a possible cause is specifying `--no-install`)"
         )
