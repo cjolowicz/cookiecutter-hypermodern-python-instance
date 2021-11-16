@@ -47,7 +47,6 @@ You need Python 3.7+ and the following tools:
 
 - Poetry_
 - Nox_
-- nox-poetry_
 
 Install the package with development requirements:
 
@@ -65,7 +64,6 @@ or the command-line interface:
 
 .. _Poetry: https://python-poetry.org/
 .. _Nox: https://nox.thea.codes/
-.. _nox-poetry: https://nox-poetry.readthedocs.io/
 
 
 How to test the project

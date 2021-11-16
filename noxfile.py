@@ -3,25 +3,15 @@ import shutil
 import sys
 from pathlib import Path
 from textwrap import dedent
+from typing import Iterable
+from typing import Iterator
 
 import nox
-
-try:
-    from nox_poetry import Session
-    from nox_poetry import session
-except ImportError:
-    message = f"""\
-    Nox failed to import the 'nox-poetry' package.
-
-    Please install it using the following command:
-
-    {sys.executable} -m pip install nox-poetry"""
-    raise SystemExit(dedent(message)) from None
 
 
 package = "cookiecutter_hypermodern_python_instance"
 python_versions = ["3.10", "3.9", "3.8", "3.7"]
-nox.needs_version = ">= 2021.6.6"
+nox.needs_version = ">= 2021.10.1"
 nox.options.sessions = (
     "pre-commit",
     "safety",
@@ -33,7 +23,84 @@ nox.options.sessions = (
 )
 
 
-def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
+def install(session: nox.Session, *, groups: Iterable[str], root: bool = True) -> None:
+    """Install the dependency groups using Poetry.
+
+    This function installs the given dependency groups into the session's
+    virtual environment. When ``root`` is true (the default), the function
+    also installs the root package and its default dependencies.
+
+    To avoid an editable install, the root package is not installed using
+    ``poetry install``. Instead, the function invokes ``pip install .``
+    to perform a PEP 517 build.
+
+    Args:
+        session: The Session object.
+        groups: The dependency groups to install.
+        root: Install the root package.
+    """
+    session.run_always(
+        "poetry",
+        "install",
+        "--no-root",
+        "--sync",
+        "--{}={}".format("only" if not root else "with", ",".join(groups)),
+        external=True,
+    )
+    if root:
+        session.install(".")
+
+
+def export_requirements(session: nox.Session, *, extras: Iterable[str] = ()) -> Path:
+    """Export a requirements file from Poetry.
+
+    This function uses ``poetry export`` to generate a requirements file
+    containing the default dependencies at the versions specified in
+    ``poetry.lock``.
+
+    Args:
+        session: The Session object.
+        extras: Extras supported by the project.
+
+    Returns:
+        The path to the requirements file.
+    """
+    # XXX Use poetry-export-plugin with dependency groups
+    output = session.run_always(
+        "poetry",
+        "export",
+        "--format=requirements.txt",
+        "--without-hashes",
+        *[f"--extras={extra}" for extra in extras],
+        external=True,
+        silent=True,
+        stderr=None,
+    )
+
+    if output is None:
+        session.skip(
+            "The command `poetry export` was not executed"
+            " (a possible cause is specifying `--no-install`)"
+        )
+
+    assert isinstance(output, str)  # noqa: S101
+
+    def _stripwarnings(lines: Iterable[str]) -> Iterator[str]:
+        for line in lines:
+            if line.startswith("Warning:"):
+                print(line, file=sys.stderr)
+                continue
+            yield line
+
+    text = "".join(_stripwarnings(output.splitlines(keepends=True)))
+
+    path = session.cache_dir / "requirements.txt"
+    path.write_text(text)
+
+    return path
+
+
+def activate_virtualenv_in_precommit_hooks(session: nox.Session) -> None:
     """Activate virtualenv in hooks installed by pre-commit.
 
     This function patches git hooks installed by pre-commit to activate the
@@ -83,53 +150,44 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         hook.write_text("\n".join(lines))
 
 
-@session(name="pre-commit", python="3.10")
-def precommit(session: Session) -> None:
+@nox.session(name="pre-commit", python="3.10")
+def precommit(session: nox.Session) -> None:
     """Lint using pre-commit."""
     args = session.posargs or ["run", "--all-files", "--show-diff-on-failure"]
-    session.install(
-        "black",
-        "darglint",
-        "flake8",
-        "flake8-bandit",
-        "flake8-bugbear",
-        "flake8-docstrings",
-        "flake8-rst-docstrings",
-        "pep8-naming",
-        "pre-commit",
-        "pre-commit-hooks",
-        "pyupgrade",
-        "reorder-python-imports",
-    )
+    install(session, groups=["pre-commit"], root=False)
     session.run("pre-commit", *args)
     if args and args[0] == "install":
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@session(python="3.10")
-def safety(session: Session) -> None:
+@nox.session(python="3.10")
+def safety(session: nox.Session) -> None:
     """Scan dependencies for insecure packages."""
-    requirements = session.poetry.export_requirements()
-    session.install("safety")
+    # NOTE: Pass `extras` to `export_requirements` if the project supports any.
+    requirements = export_requirements(session)
+    install(session, groups=["safety"], root=False)
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
 
-@session(python=python_versions)
-def mypy(session: Session) -> None:
+@nox.session(python=python_versions)
+def mypy(session: nox.Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or ["src", "tests", "docs/conf.py"]
-    session.install(".")
-    session.install("mypy", "pytest")
+    install(session, groups=["mypy", "tests"])
     session.run("mypy", *args)
     if not session.posargs:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
-@session(python=python_versions)
-def tests(session: Session) -> None:
+@nox.session(python=python_versions)
+def tests(session: nox.Session) -> None:
     """Run the test suite."""
-    session.install(".")
-    session.install("coverage[toml]", "pytest", "pygments")
+    install(session, groups=["coverage", "tests"])
+
+    if session.python == "3.10":
+        # Workaround an unidentified issue in Poetry 1.2.0a2.
+        session.install("coverage[toml]==6.1.2")
+
     try:
         session.run("coverage", "run", "--parallel", "-m", "pytest", *session.posargs)
     finally:
@@ -137,12 +195,12 @@ def tests(session: Session) -> None:
             session.notify("coverage", posargs=[])
 
 
-@session
-def coverage(session: Session) -> None:
+@nox.session
+def coverage(session: nox.Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report"]
 
-    session.install("coverage[toml]")
+    install(session, groups=["coverage"], root=False)
 
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
@@ -150,29 +208,26 @@ def coverage(session: Session) -> None:
     session.run("coverage", *args)
 
 
-@session(python=python_versions)
-def typeguard(session: Session) -> None:
+@nox.session(python=python_versions)
+def typeguard(session: nox.Session) -> None:
     """Runtime type checking using Typeguard."""
-    session.install(".")
-    session.install("pytest", "typeguard", "pygments")
+    install(session, groups=["typeguard", "tests"])
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
-@session(python=python_versions)
-def xdoctest(session: Session) -> None:
+@nox.session(python=python_versions)
+def xdoctest(session: nox.Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
-    session.install(".")
-    session.install("xdoctest[colors]")
+    install(session, groups=["xdoctest"])
     session.run("python", "-m", "xdoctest", package, *args)
 
 
-@session(name="docs-build", python="3.10")
-def docs_build(session: Session) -> None:
+@nox.session(name="docs-build", python="3.10")
+def docs_build(session: nox.Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
-    session.install(".")
-    session.install("sphinx", "sphinx-click", "furo")
+    install(session, groups=["docs"])
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
@@ -181,12 +236,11 @@ def docs_build(session: Session) -> None:
     session.run("sphinx-build", *args)
 
 
-@session(python="3.10")
-def docs(session: Session) -> None:
+@nox.session(python="3.10")
+def docs(session: nox.Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
-    session.install(".")
-    session.install("sphinx", "sphinx-autobuild", "sphinx-click", "furo")
+    install(session, groups=["docs"])
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():

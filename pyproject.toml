@@ -19,29 +19,68 @@ Changelog = "https://github.com/cjolowicz/cookiecutter-hypermodern-python-instan
 python = "^3.7"
 click = "^8.0.1"
 
-[tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
-coverage = {extras = ["toml"], version = "^6.1"}
-safety = "^1.10.3"
-mypy = "^0.910"
-typeguard = "^2.13.0"
-xdoctest = {extras = ["colors"], version = "^0.15.10"}
-sphinx = "^4.3.0"
-sphinx-autobuild = ">=2021.3.14"
-pre-commit = "^2.15.0"
-flake8 = "^4.0.1"
+[tool.poetry.group.pre-commit]
+optional = true
+
+[tool.poetry.group.pre-commit.dependencies]
 black = ">=21.10b0"
+darglint = "^1.8.1"
+flake8 = "^4.0.1"
 flake8-bandit = "^2.1.2"
 flake8-bugbear = "^21.9.2"
 flake8-docstrings = "^1.6.0"
 flake8-rst-docstrings = "^0.2.3"
 pep8-naming = "^0.12.1"
-darglint = "^1.8.1"
-reorder-python-imports = "^2.6.0"
+pre-commit = "^2.15.0"
 pre-commit-hooks = "^4.0.1"
-sphinx-click = "^3.0.2"
-Pygments = "^2.10.0"
 pyupgrade = "^2.29.0"
+reorder-python-imports = "^2.6.0"
+setuptools = "^58.5.3"
+
+[tool.poetry.group.safety]
+optional = true
+
+[tool.poetry.group.safety.dependencies]
+safety = "^1.10.3"
+
+[tool.poetry.group.coverage]
+optional = true
+
+[tool.poetry.group.coverage.dependencies]
+coverage = {extras = ["toml"], version = "^6.1"}
+
+[tool.poetry.group.tests]
+optional = true
+
+[tool.poetry.group.tests.dependencies]
+pytest = "^6.2.5"
+Pygments = "^2.10.0"
+
+[tool.poetry.group.mypy]
+optional = true
+
+[tool.poetry.group.mypy.dependencies]
+mypy = "^0.910"
+
+[tool.poetry.group.typeguard]
+optional = true
+
+[tool.poetry.group.typeguard.dependencies]
+typeguard = "^2.13.0"
+
+[tool.poetry.group.xdoctest]
+optional = true
+
+[tool.poetry.group.xdoctest.dependencies]
+xdoctest = {extras = ["colors"], version = "^0.15.10"}
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^4.3.0"
+sphinx-autobuild = ">=2021.3.14"
+sphinx-click = "^3.0.2"
 furo = ">=2021.11.12"
 
 [tool.poetry.scripts]
@@ -67,5 +106,5 @@ show_error_codes = true
 show_error_context = true
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.1.0a6"]
 build-backend = "poetry.core.masonry.api"
