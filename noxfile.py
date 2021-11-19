@@ -162,10 +162,16 @@ def typeguard(session: Session) -> None:
 @session(python=python_versions)
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
-    args = session.posargs or ["all"]
+    if session.posargs:
+        args = [package, *session.posargs]
+    else:
+        args = [f"--modname={package}", "--command=all"]
+        if "FORCE_COLOR" in os.environ:
+            args.append("--colored=1")
+
     session.install(".")
     session.install("xdoctest[colors]")
-    session.run("python", "-m", "xdoctest", package, *args)
+    session.run("python", "-m", "xdoctest", *args)
 
 
 @session(name="docs-build", python="3.10")
