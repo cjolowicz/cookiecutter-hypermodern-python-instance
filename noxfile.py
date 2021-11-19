@@ -1,4 +1,5 @@
 """Nox sessions."""
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -171,6 +172,9 @@ def xdoctest(session: Session) -> None:
 def docs_build(session: Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
+    if not session.posargs and "FORCE_COLOR" in os.environ:
+        args.insert(0, "--color")
+
     session.install(".")
     session.install("sphinx", "sphinx-click", "furo")
 
