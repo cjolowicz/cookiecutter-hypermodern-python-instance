@@ -49,10 +49,11 @@ cookiecutter-hypermodern-python-instance = "cookiecutter_hypermodern_python_inst
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
+tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["cookiecutter_hypermodern_python_instance"]
+source = ["cookiecutter_hypermodern_python_instance", "tests"]
 
 [tool.coverage.report]
 show_missing = true
