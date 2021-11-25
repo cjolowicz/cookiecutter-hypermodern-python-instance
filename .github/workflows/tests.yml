@@ -46,6 +46,7 @@ jobs:
         run: |
           pip install --constraint=.github/workflows/constraints.txt pip
           pip --version
+          python -c 'import pip; print(f"VIRTUALENV_PIP={pip.__version__}")' >> $GITHUB_ENV
 
       - name: Install Poetry
         run: |
