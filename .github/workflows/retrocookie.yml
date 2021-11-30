@@ -55,7 +55,19 @@ jobs:
           retrocookie --version
       - name: Import commit into ${{ env.TEMPLATE }}
         run: |
-          retrocookie -C ${TEMPLATE} ${PROJECT} ${GITHUB_SHA}
+          retrocookie -C ${TEMPLATE} ${PROJECT} ${GITHUB_SHA} || status=$?
+
+          if [ $status -ne 0 ]
+          then
+            if git -C ${TEMPLATE} status --porcelain | grep --fixed-strings --quiet retrocookie.yml
+            then
+              echo "Resolving conflicts for retrocookie.yml..."
+              git -C ${TEMPLATE} rm '{{cookiecutter.project_name}}/.github/workflows/retrocookie.yml'
+              git -C ${TEMPLATE} cherry-pick --continue
+            else
+              exit $status
+            fi
+          fi
 
           message="$(git -C ${PROJECT} show --no-patch --format=%B ${GITHUB_SHA} | sed 's/ *(#[0-9]\+)//g')
 
