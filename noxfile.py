@@ -86,15 +86,13 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
                 PATH={shlex.quote(session.bin)}{os.pathsep}"$PATH"
                 """,
         }
-        if "python" in lines[0].lower():
-            header = dedent(patches["python"])
-            lines.insert(1, header)
-            hook.write_text("\n".join(lines))
 
-        elif "bash" in lines[0].lower():
-            header = dedent(patches["bash"])
-            lines.insert(1, header)
-            hook.write_text("\n".join(lines))
+        for executable in ("python", "bash"):
+            if executable in lines[0].lower():
+                header = dedent(patches[executable])
+                lines.insert(1, header)
+                hook.write_text("\n".join(lines))
+                break
 
 
 @session(name="pre-commit", python=python_versions[0])
