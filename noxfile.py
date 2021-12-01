@@ -66,7 +66,10 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             continue
 
         lines = text.splitlines()
-        if not (lines[0].startswith("#!") and "python" in lines[0].lower()):
+        if not lines[0].startswith("#!"):
+            continue
+
+        if "python" not in lines[0].lower():
             continue
 
         header = dedent(
