@@ -47,6 +47,10 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
     """
     assert session.bin is not None  # noqa: S101
 
+    # Strip quotes so we can detect <bindir>/python too.
+    bindirs = [repr(session.bin), shlex.quote(session.bin)]
+    bindirs = [bindir[1:-1] for bindir in bindirs]
+
     virtualenv = session.env.get("VIRTUAL_ENV")
     if virtualenv is None:
         return
@@ -60,10 +64,6 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             continue
 
         text = hook.read_text()
-        bindirs = [repr(session.bin), shlex.quote(session.bin)]
-
-        # Strip quotes so we can detect <bindir>/python too.
-        bindirs = [bindir[1:-1] for bindir in bindirs]
 
         if not any(
             Path("A") == Path("a") and bindir.lower() in text.lower() or bindir in text
