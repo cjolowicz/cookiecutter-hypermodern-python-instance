@@ -49,7 +49,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
 
     # Strip quotes so we can detect <bindir>/python too.
     bindirs = [repr(session.bin), shlex.quote(session.bin)]
-    bindirs = [bindir[1:-1] for bindir in bindirs]
+    bindirs = [bindir[1:-1] if bindir[0] in "'\"" else bindir for bindir in bindirs]
 
     virtualenv = session.env.get("VIRTUAL_ENV")
     if virtualenv is None:
