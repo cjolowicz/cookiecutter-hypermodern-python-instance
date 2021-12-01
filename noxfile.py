@@ -87,9 +87,9 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
                 """,
         }
 
-        for executable in ("python", "bash"):
+        for executable, patch in patches.items():
             if executable in lines[0].lower():
-                header = dedent(patches[executable])
+                header = dedent(patch)
                 lines.insert(1, header)
                 hook.write_text("\n".join(lines))
                 break
