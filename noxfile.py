@@ -59,6 +59,23 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
     if virtualenv is None:
         return
 
+    headers = {
+        # pre-commit < 2.16.0
+        "python": f"""\
+            import os
+            os.environ["VIRTUAL_ENV"] = {virtualenv!r}
+            os.environ["PATH"] = os.pathsep.join((
+                {session.bin!r},
+                os.environ.get("PATH", ""),
+            ))
+            """,
+        # pre-commit >= 2.16.0
+        "bash": f"""\
+            VIRTUAL_ENV={shlex.quote(virtualenv)}
+            PATH={shlex.quote(session.bin)}{os.pathsep}"$PATH"
+            """,
+    }
+
     hookdir = Path(".git") / "hooks"
     if not hookdir.is_dir():
         return
@@ -78,23 +95,6 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         lines = text.splitlines()
         if not lines[0].startswith("#!"):
             continue
-
-        headers = {
-            # pre-commit < 2.16.0
-            "python": f"""\
-                import os
-                os.environ["VIRTUAL_ENV"] = {virtualenv!r}
-                os.environ["PATH"] = os.pathsep.join((
-                    {session.bin!r},
-                    os.environ.get("PATH", ""),
-                ))
-                """,
-            # pre-commit >= 2.16.0
-            "bash": f"""\
-                VIRTUAL_ENV={shlex.quote(virtualenv)}
-                PATH={shlex.quote(session.bin)}{os.pathsep}"$PATH"
-                """,
-        }
 
         for executable, header in headers.items():
             if executable in lines[0].lower():
