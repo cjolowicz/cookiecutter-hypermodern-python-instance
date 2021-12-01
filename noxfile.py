@@ -1,5 +1,6 @@
 """Nox sessions."""
 import os
+import shlex
 import shutil
 import sys
 from pathlib import Path
@@ -78,6 +79,17 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
                     {session.bin!r},
                     os.environ.get("PATH", ""),
                 ))
+                """
+            )
+
+            lines.insert(1, header)
+            hook.write_text("\n".join(lines))
+
+        elif "bash" in lines[0].lower():
+            header = dedent(
+                f"""\
+                VIRTUAL_ENV={shlex.quote(virtualenv)}
+                PATH={shlex.quote(session.bin)}{os.pathsep}"$PATH"
                 """
             )
 
