@@ -70,7 +70,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         if not lines[0].startswith("#!"):
             continue
 
-        patches = {
+        headers = {
             # pre-commit < 2.16.0
             "python": f"""\
                 import os
@@ -87,7 +87,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
                 """,
         }
 
-        for executable, patch in patches.items():
+        for executable, patch in headers.items():
             if executable in lines[0].lower():
                 lines.insert(1, dedent(patch))
                 hook.write_text("\n".join(lines))
