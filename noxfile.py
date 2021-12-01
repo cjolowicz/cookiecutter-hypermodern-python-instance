@@ -71,6 +71,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             continue
 
         if "python" in lines[0].lower():
+            # pre-commit < 2.16.0
             header = dedent(
                 f"""\
                 import os
@@ -86,6 +87,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             hook.write_text("\n".join(lines))
 
         elif "bash" in lines[0].lower():
+            # pre-commit >= 2.16.0
             header = dedent(
                 f"""\
                 VIRTUAL_ENV={shlex.quote(virtualenv)}
