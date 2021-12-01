@@ -71,6 +71,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             continue
 
         patches = {
+            # pre-commit < 2.16.0
             "python": f"""\
                 import os
                 os.environ["VIRTUAL_ENV"] = {virtualenv!r}
@@ -79,19 +80,18 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
                     os.environ.get("PATH", ""),
                 ))
                 """,
+            # pre-commit >= 2.16.0
             "bash": f"""\
                 VIRTUAL_ENV={shlex.quote(virtualenv)}
                 PATH={shlex.quote(session.bin)}{os.pathsep}"$PATH"
                 """,
         }
         if "python" in lines[0].lower():
-            # pre-commit < 2.16.0
             header = dedent(patches["python"])
             lines.insert(1, header)
             hook.write_text("\n".join(lines))
 
         elif "bash" in lines[0].lower():
-            # pre-commit >= 2.16.0
             header = dedent(patches["bash"])
             lines.insert(1, header)
             hook.write_text("\n".join(lines))
