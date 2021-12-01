@@ -60,9 +60,10 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             continue
 
         text = hook.read_text()
-        bindir = repr(session.bin)[1:-1]  # strip quotes
-        if not (
+        bindirs = [repr(session.bin)[1:-1]]  # strip quotes
+        if not any(
             Path("A") == Path("a") and bindir.lower() in text.lower() or bindir in text
+            for bindir in bindirs
         ):
             continue
 
