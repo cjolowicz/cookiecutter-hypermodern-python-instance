@@ -84,6 +84,9 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         if hook.name.endswith(".sample") or not hook.is_file():
             continue
 
+        if not hook.read_bytes().startswith(b"#!"):
+            continue
+
         text = hook.read_text()
 
         if not any(
@@ -93,8 +96,6 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             continue
 
         lines = text.splitlines()
-        if not hook.read_bytes().startswith(b"#!"):
-            continue
 
         for executable, header in headers.items():
             if executable in lines[0].lower():
