@@ -97,5 +97,6 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _Hypermodern Python Cookiecutter: https://github.com/cjolowicz/cookiecutter-hypermodern-python
 .. _file an issue: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues
 .. _pip: https://pip.pypa.io/
+.. github-only
 .. _Contributor Guide: https://cookiecutter-hypermodern-python-instance.readthedocs.io/en/latest/contributing.html
 .. _Usage: https://cookiecutter-hypermodern-python-instance.readthedocs.io/en/latest/usage.html
