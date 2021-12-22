@@ -19,7 +19,7 @@ Cookiecutter Hypermodern Python Instance
 .. |License| image:: https://img.shields.io/pypi/l/cookiecutter-hypermodern-python-instance
    :target: https://opensource.org/licenses/MIT
    :alt: License
-.. |Read the Docs| image:: https://img.shields.io/readthedocs/cookiecutter-hypermodern-python-instance/latest.svg?label=Read%20the%20Docs
+.. |Read the Docs| image:: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Documentation/badge.svg
    :target: https://cookiecutter-hypermodern-python-instance.readthedocs.io/
    :alt: Read the documentation at https://cookiecutter-hypermodern-python-instance.readthedocs.io/
 .. |Tests| image:: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Tests/badge.svg

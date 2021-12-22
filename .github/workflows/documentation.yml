@@ -1,5 +1,5 @@
 ---
-name: Check documentation
+name: Documentation
 
 on:
   schedule:
