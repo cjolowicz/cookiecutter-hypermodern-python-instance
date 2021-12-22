@@ -26,7 +26,7 @@ Cookiecutter Hypermodern Python Instance
    :target: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/actions?workflow=Tests
    :alt: Tests
 .. |Codecov| image:: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance/branch/main/graph/badge.svg
-   :target: https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance
+   :target: https://app.codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance
    :alt: Codecov
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
