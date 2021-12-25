@@ -60,6 +60,9 @@ source = ["cookiecutter_hypermodern_python_instance", "tests"]
 show_missing = true
 fail_under = 100
 
+[tool.isort]
+profile = "black"
+
 [tool.mypy]
 strict = true
 warn_unreachable = true
