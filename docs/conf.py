@@ -1,10 +1,7 @@
 """Sphinx configuration."""
-from datetime import datetime
-
-
 project = "Cookiecutter Hypermodern Python Instance"
 author = "Claudio Jolowicz"
-copyright = f"{datetime.now().year}, {author}"
+copyright = "2022, {author}"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
