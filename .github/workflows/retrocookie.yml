@@ -55,7 +55,7 @@ jobs:
           retrocookie --version
       - name: Import commit into ${{ env.TEMPLATE }}
         run: |
-          retrocookie -C ${TEMPLATE} ${PROJECT} ${GITHUB_SHA} || status=$?
+          retrocookie -C ${TEMPLATE} ${PROJECT} ${GITHUB_SHA} --exclude-variable=copyright_year || status=$?
 
           if [ $status -ne 0 ]
           then
