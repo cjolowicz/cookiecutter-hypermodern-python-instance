@@ -102,16 +102,6 @@ jobs:
           name: coverage-data
           path: ".coverage.*"
 
-<<<<<<< HEAD
-      - name: Upload documentation
-        if: matrix.session == 'docs-build'
-        uses: actions/upload-artifact@v2.3.1
-        with:
-          name: docs
-          path: docs/_build
-
-=======
->>>>>>> 83d261a (Add cron-like docs-build workflow)
   coverage:
     runs-on: ubuntu-latest
     needs: tests
