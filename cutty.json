@@ -1,7 +1,7 @@
 {
   "template": {
     "location": "https://github.com/cjolowicz/cookiecutter-hypermodern-python",
-    "revision": "62f966ac0cb51bdab775b5f61916254b9c0c0067",
+    "revision": "69c9e260917f7336ec22408a32dd5425cb60729b",
     "directory": null
   },
   "bindings": {
@@ -13,6 +13,7 @@
     "github_user": "cjolowicz",
     "version": "0.0.0",
     "license": "MIT",
-    "development_status": "Development Status :: 1 - Planning"
+    "development_status": "Development Status :: 1 - Planning",
+    "copyright_year": "2022"
   }
 }

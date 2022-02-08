@@ -8,6 +8,7 @@ from textwrap import dedent
 
 import nox
 
+
 try:
     from nox_poetry import Session
     from nox_poetry import session
@@ -74,6 +75,11 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
             VIRTUAL_ENV={shlex.quote(virtualenv)}
             PATH={shlex.quote(session.bin)}"{os.pathsep}$PATH"
             """,
+        # pre-commit >= 2.17.0 on Windows forces sh shebang
+        "/bin/sh": f"""\
+            VIRTUAL_ENV={shlex.quote(virtualenv)}
+            PATH={shlex.quote(session.bin)}"{os.pathsep}$PATH"
+            """,
     }
 
     hookdir = Path(".git") / "hooks"
@@ -116,11 +122,11 @@ def precommit(session: Session) -> None:
         "flake8-bugbear",
         "flake8-docstrings",
         "flake8-rst-docstrings",
+        "isort",
         "pep8-naming",
         "pre-commit",
         "pre-commit-hooks",
         "pyupgrade",
-        "reorder-python-imports",
     )
     session.run("pre-commit", *args)
     if args and args[0] == "install":
@@ -171,7 +177,7 @@ def coverage(session: Session) -> None:
     session.run("coverage", *args)
 
 
-@session(python=python_versions)
+@session(python=python_versions[0])
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
     session.install(".")
@@ -209,7 +215,7 @@ def docs_build(session: Session) -> None:
         args.insert(0, "--color")
 
     session.install(".")
-    session.install("sphinx", "sphinx-click", "furo")
+    session.install("sphinx", "sphinx-click", "furo", "myst-parser")
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
@@ -223,7 +229,7 @@ def docs(session: Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
     session.install(".")
-    session.install("sphinx", "sphinx-autobuild", "sphinx-click", "furo")
+    session.install("sphinx", "sphinx-autobuild", "sphinx-click", "furo", "myst-parser")
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
