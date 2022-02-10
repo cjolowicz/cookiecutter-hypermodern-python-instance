@@ -62,7 +62,6 @@ please [file an issue] along with a detailed description.
 This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter] template.
 
 [@cjolowicz]: https://github.com/cjolowicz
-[mit license]: https://opensource.org/licenses/MIT
 [pypi]: https://pypi.org/
 [hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
 [file an issue]: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/issues
@@ -70,5 +69,6 @@ This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter]
 
 <!-- github-only -->
 
+[mit license]: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/blob/main/LICENSE
 [contributor guide]: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/blob/main/CONTRIBUTING.md
 [command-line reference]: https://cookiecutter-hypermodern-python-instance.readthedocs.io/en/latest/usage.html
