@@ -4,7 +4,7 @@ end-before: <!-- github-only -->
 ---
 ```
 
-[mit license]: license
+[license]: license
 [contributor guide]: contributing
 [command-line reference]: usage
 
