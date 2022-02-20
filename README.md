@@ -5,7 +5,7 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance)][python version]
 [![License](https://img.shields.io/pypi/l/cookiecutter-hypermodern-python-instance)][license]
 
-[![Read the documentation at https://cookiecutter-hypermodern-python-instance.readthedocs.io/](https://img.shields.io/readthedocs/cookiecutter-hypermodern-python-instance/latest.svg?label=Read%20the%20Docs)][read the docs]
+[![Read the documentation at https://cookiecutter-hypermodern-python-instance.readthedocs.io/](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Documentation/badge.svg)][read the docs]
 [![Tests](https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/workflows/Tests/badge.svg)][tests]
 [![Codecov](https://codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance/branch/main/graph/badge.svg)][codecov]
 
