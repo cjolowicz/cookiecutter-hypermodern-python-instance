@@ -1,8 +1,8 @@
 # Cookiecutter Hypermodern Python Instance
 
-[![PyPI](https://img.shields.io/pypi/v/cookiecutter-hypermodern-python-instance.svg)][pypi_]
-[![Status](https://img.shields.io/pypi/status/cookiecutter-hypermodern-python-instance.svg)][status]
-[![Python Version](https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance)][python version]
+[![PyPI](https://img.shields.io/pypi/v/cookiecutter-hypermodern-python-instance.svg)][pypi status]
+[![Status](https://img.shields.io/pypi/status/cookiecutter-hypermodern-python-instance.svg)][pypi status]
+[![Python Version](https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance)][pypi status]
 [![License](https://img.shields.io/pypi/l/cookiecutter-hypermodern-python-instance)][license]
 
 [![Read the documentation at https://cookiecutter-hypermodern-python-instance.readthedocs.io/](https://img.shields.io/readthedocs/cookiecutter-hypermodern-python-instance/latest.svg?label=Read%20the%20Docs)][read the docs]
@@ -12,9 +12,7 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
 
-[pypi_]: https://pypi.org/project/cookiecutter-hypermodern-python-instance/
-[status]: https://pypi.org/project/cookiecutter-hypermodern-python-instance/
-[python version]: https://pypi.org/project/cookiecutter-hypermodern-python-instance
+[pypi status]: https://pypi.org/project/cookiecutter-hypermodern-python-instance/
 [read the docs]: https://cookiecutter-hypermodern-python-instance.readthedocs.io/
 [tests]: https://github.com/cjolowicz/cookiecutter-hypermodern-python-instance/actions?workflow=Tests
 [codecov]: https://app.codecov.io/gh/cjolowicz/cookiecutter-hypermodern-python-instance
