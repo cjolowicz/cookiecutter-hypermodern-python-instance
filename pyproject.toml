@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cookiecutter-hypermodern-python-instance"
-version = "2021.11.26"
+version = "2022.6.3"
 description = "Cookiecutter Hypermodern Python Instance"
 authors = ["Claudio Jolowicz <mail@claudiojolowicz.com>"]
 license = "MIT"
